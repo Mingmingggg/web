@@ -1,0 +1,2691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infobytes Solutions Inc. | Enterprise IT Solutions</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts - Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        /* ======= ROOT VARIABLES ======= */
+        :root {
+            --primary: #003366;
+            --primary-dark: #002244;
+            --secondary: #0056b3;
+            --accent: #00a0e3;
+            --accent-light: #33c6ff;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --white: #ffffff;
+            --success: #28a745;
+            --border-radius: 6px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+        
+        /* ======= GLOBAL STYLES ======= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Roboto", sans-serif;
+            font-weight: 400;
+            overflow-x: hidden;
+            color: var(--dark);
+            background-color: var(--white);
+            line-height: 1.6;
+            font-size: 16px;
+            letter-spacing: 0.01em;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Roboto", sans-serif;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+            text-transform: uppercase;
+        }
+        
+        h1 {
+            padding-top: 30px;
+            font-size: 3.5rem;
+            font-weight: 900;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        h5 {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+        
+        a {
+            text-decoration: none;
+            transition: var(--transition);
+            color: var(--secondary);
+        }
+        
+        a:hover {
+            color: var(--accent);
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .container {
+            max-width: 1200px;
+            padding: 0 15px;
+            margin: 0 auto;
+        }
+        
+        section {
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* ======= PRELOADER ======= */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .preloader-content {
+            text-align: center;
+        }
+        
+        .preloader-logo {
+            font-family: "Roboto", sans-serif;
+            font-weight: 900;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .preloader-logo span {
+            color: var(--accent);
+        }
+        
+        .preloader-spinner {
+            width: 70px;
+            height: 70px;
+            border: 3px solid var(--light-gray);
+            border-top: 3px solid var(--primary);
+            border-right: 3px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* ======= NAVBAR STYLES ======= */
+        .navbar {
+            transition: var(--transition);
+            padding: 1.0rem 2rem;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar.scrolled {
+            padding: 0.8rem 2rem;
+        }
+        
+        .navbar-brand {
+            font-family: "Roboto", sans-serif;
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--primary);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        .navbar-brand span {
+            color: var(--accent);
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            margin: 0 12px;
+            position: relative;
+            color: var(--dark);
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            padding: 0.5rem 0;
+            text-transform: uppercase;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after, .nav-link.active:after {
+            width: 100%;
+        }
+        
+        .navbar-toggler {
+            border: none;
+            padding: 0;
+        }
+        
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+        
+        .navbar-toggler-icon {
+            width: 24px;
+            height: 17px;
+            background-image: none;
+            position: relative;
+            border-bottom: 1px solid var(--dark);
+            transition: all 300ms linear;
+        }
+        
+        .navbar-toggler-icon:after, 
+        .navbar-toggler-icon:before {
+            width: 24px;
+            position: absolute;
+            height: 1px;
+            background-color: var(--dark);
+            top: 0;
+            left: 0;
+            content: '';
+            z-index: 2;
+            transition: all 300ms linear;
+        }
+        
+        .navbar-toggler-icon:after {
+            top: 8px;
+        }
+        
+        .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:after {
+            transform: rotate(45deg);
+            background-color: var(--dark);
+            height: 1px;
+        }
+        
+        .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:before {
+            transform: translateY(8px) rotate(-45deg);
+            background-color: var(--dark);
+            height: 1px;
+        }
+        
+        .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+            border-color: transparent;
+        }
+        
+        /* ======= HERO SECTION ======= */
+        .hero {
+            background: linear-gradient(135deg, rgba(0, 51, 102, 0.95), rgba(0, 86, 179, 0.9)), url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+            min-height: 100vh;
+            color: white;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 100px 0;
+            margin-top: -96px; /* Adjust based on navbar height */
+            padding-top: 196px; /* Adjust based on navbar height */
+        }
+        
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+        
+        .hero-content {
+            z-index: 1;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            position: relative;
+            color: var(--white);
+            letter-spacing: 0.02em;
+        }
+        
+        .hero h1:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background: var(--accent);
+            bottom: -15px;
+            left: 0;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            opacity: 0.9;
+            line-height: 1.8;
+            margin-top: 2rem;
+            color: var(--white);
+        }
+        
+        .btn {
+            padding: 0.85rem 2.5rem;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            font-family: "Roboto", sans-serif;
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .btn:hover:before {
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 5px 15px rgba(0, 160, 227, 0.4);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent-light);
+            border-color: var(--accent-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 160, 227, 0.4);
+        }
+        
+        .btn-outline-light {
+            border-width: 2px;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-outline-light:hover {
+            background-color: var(--white);
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+        }
+        
+        .hero-image {
+            position: relative;
+        }
+        
+        .hero-image img {
+            position: relative;
+            z-index: 1;
+            animation: float 6s ease-in-out infinite;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .hero-shape {
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            z-index: 0;
+            display: block;
+        }
+        
+        /* ======= SECTION STYLES ======= */
+        .section-title {
+            position: relative;
+            margin-bottom: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 2.5rem;
+            line-height: 1.2;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            bottom: -15px;
+            left: 0;
+        }
+        
+        .section-title.text-center:after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+        
+        .section-bg-light {
+            background-color: var(--light);
+        }
+        
+        .section-bg-pattern {
+            background-color: var(--white);
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f0f0f0' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .section-divider {
+            height: 100px;
+            width: 100%;
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            z-index: 1;
+            display: block;
+        }
+        
+        .section-divider.top {
+            top: -2px;
+            bottom: auto;
+            transform: rotate(180deg);
+        }
+        
+        /* ======= ABOUT SECTION ======= */
+        .about-section {
+            background-color: var(--white);
+        }
+        
+        .about-card {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            height: 100%;
+            transition: var(--transition);
+            border: none;
+            background-color: var(--white);
+        }
+        
+        .about-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .about-card .card-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            font-weight: 700;
+            padding: 2rem;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-card .card-header:before {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -75px;
+            right: -75px;
+        }
+        
+        .about-card .card-header h3 {
+            color: var(--white);
+            margin-bottom: 0;
+            font-size: 1.8rem;
+        }
+        
+        .about-card .card-body {
+            padding: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .about-card .card-body p {
+            line-height: 1.8;
+            color: var(--gray);
+            margin-bottom: 0;
+            font-size: 1.05rem;
+        }
+        
+        /* ======= STATS SECTION ======= */
+        .stats-section {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .stats-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stat-number-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--white);
+            font-family: "Roboto", sans-serif;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .stat-symbol {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            position: absolute;
+            top: 0;
+            right: -25px;
+        }
+        
+        .stat-text {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* ======= EXPERIENCE SECTION ======= */
+        .experience-section {
+            background-color: var(--light);
+            position: relative;
+        }
+        
+        .experience-item {
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            background: var(--white);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            height: 100%;
+        }
+        
+        .experience-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .experience-item:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .experience-icon {
+            width: 90px;
+            height: 90px;
+            line-height: 90px;
+            border-radius: 50%;
+            background: var(--light);
+            color: var(--primary);
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .experience-item:hover .experience-icon {
+            background: var(--primary);
+            color: var(--white);
+            transform: rotateY(180deg);
+        }
+        
+        .experience-item h3 {
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .experience-item p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 0;
+            font-size: 1.05rem;
+        }
+        
+        /* ======= SERVICES SECTION ======= */
+        .services-section {
+            position: relative;
+            background-color: var(--white);
+        }
+        
+        .service-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            height: 100%;
+            background: var(--white);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-card:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(135deg, rgba(0, 51, 102, 0.03), rgba(0, 160, 227, 0.03));
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+            transition: var(--transition);
+        }
+        
+        .service-card:hover:before {
+            height: 100%;
+        }
+        
+        .service-icon {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            border-radius: 50%;
+            background: var(--light);
+            margin: 0 auto 2rem;
+            color: var(--primary);
+            font-size: 2.5rem;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .service-icon:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px dashed var(--primary);
+            top: 0;
+            left: 0;
+            animation: spin 15s linear infinite;
+            opacity: 0.3;
+        }
+        
+        .service-card:hover .service-icon {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--white);
+            transform: rotateY(360deg);
+        }
+        
+        .service-card h3 {
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .service-card p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 0;
+            font-size: 1.05rem;
+        }
+        
+        /* ======= TESTIMONIALS SECTION ======= */
+        .testimonials-section {
+            background-color: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial-slider {
+            padding: 30px 0;
+        }
+        
+        .testimonial-item {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 3rem;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            margin: 30px 15px;
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .testimonial-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-content {
+            position: relative;
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--light-gray);
+            flex-grow: 1;
+        }
+        
+        .testimonial-content:before {
+            content: '\f10d';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            font-size: 3rem;
+            color: rgba(0, 51, 102, 0.1);
+            z-index: 0;
+        }
+        
+        .testimonial-text {
+            position: relative;
+            z-index: 1;
+            font-style: italic;
+            color: var(--gray);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .testimonial-info h4 {
+            margin-bottom: 5px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        
+        .testimonial-info p {
+            margin-bottom: 0;
+            color: var(--accent);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        .testimonial-rating {
+            color: #ffc107;
+            margin-top: 5px;
+            font-size: 1rem;
+        }
+        
+        .testimonial-controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .testimonial-control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--white);
+            color: var(--primary);
+            border: none;
+            margin: 0 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+        
+        .testimonial-control-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+        
+        /* ======= OBJECTIVE SECTION ======= */
+        .objective-section {
+            background: linear-gradient(135deg, rgba(0, 51, 102, 0.95), rgba(0, 86, 179, 0.95)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+            color: var(--white);
+            position: relative;
+        }
+        
+        .objective-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+        
+        .objective-content {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3.5rem;
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transform: translateZ(0);
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .objective-content:before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            z-index: -1;
+        }
+        
+        .objective-content:after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            bottom: -75px;
+            left: -75px;
+            z-index: -1;
+        }
+        
+        .objective-content p {
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .objective-content p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-title.text-white {
+            color: var(--white);
+        }
+        
+        .section-title.text-white:after {
+            background: var(--white);
+        }
+        
+        /* ======= ORG CHART SECTION ======= */
+        .org-chart-section {
+            background-color: var(--light);
+            position: relative;
+        }
+        
+        .org-chart {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .org-chart-container {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .org-level {
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .org-level:last-child {
+            margin-bottom: 0;
+        }
+        
+        .org-level-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 1.3rem;
+            background: var(--white);
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .org-department {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 18px 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            font-size: 1.1rem;
+        }
+        
+        .org-department:before {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -30px;
+            right: -30px;
+        }
+        
+        .org-box {
+            padding: 25px;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            margin-bottom: 20px;
+            transform: translateZ(0);
+        }
+        
+        .org-box:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .org-box:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            bottom: 0;
+            left: 0;
+        }
+        
+        .org-name {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-size: 1.15rem;
+            letter-spacing: 0.03em;
+        }
+        
+        .org-title {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 500;
+            letter-spacing: 0.03em;
+        }
+        
+        /* ======= PARTNERS SECTION ======= */
+        .partners-section {
+            background-color: var(--white);
+            padding: 80px 0;
+        }
+        
+        .partner-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 120px;
+            padding: 20px;
+            margin: 20px 0;
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+        
+        .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        
+        .partner-logo img {
+            max-height: 100%;
+            max-width: 100%;
+        }
+        
+        /* ======= CONTACT SECTION ======= */
+        .contact-section {
+            position: relative;
+            background-color: var(--white);
+        }
+        
+        .contact-info {
+            padding: 3.5rem;
+            border-radius: var(--border-radius);
+            background: var(--white);
+            box-shadow: var(--box-shadow);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .contact-info:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            font-size: 1.8rem;
+        }
+        
+        .contact-info h3:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            bottom: -10px;
+            left: 0;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
+            border-radius: 50%;
+            background: var(--light);
+            margin-right: 1.5rem;
+            color: var(--primary);
+            font-size: 1.8rem;
+            text-align: center;
+            flex-shrink: 0;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contact-item:hover .contact-icon {
+            background: var(--primary);
+            color: var(--white);
+            transform: rotateY(180deg);
+        }
+        
+        .contact-details h5 {
+            margin-bottom: 5px;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .contact-details p {
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 0;
+            font-size: 1.05rem;
+        }
+        
+        .contact-form {
+            padding: 3.5rem;
+            border-radius: var(--border-radius);
+            background: var(--white);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .contact-form:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .contact-form h3 {
+            margin-bottom: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            font-size: 1.8rem;
+        }
+        
+        .contact-form h3:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+            bottom: -10px;
+            left: 0;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-control {
+            height: 58px;
+            padding: 0.85rem 1.25rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--light-gray);
+            font-size: 1rem;
+            color: var(--dark);
+            box-shadow: none;
+            transition: var(--transition);
+            font-family: "Roboto", sans-serif;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+        }
+        
+        textarea.form-control {
+            height: auto;
+            min-height: 180px;
+            resize: none;
+        }
+        
+        .form-submit {
+            text-align: right;
+        }
+        
+        /* ======= CTA SECTION ======= */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        .cta-content h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            letter-spacing: 0.05em;
+        }
+        
+        .cta-content p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* ======= FOOTER ======= */
+        footer {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: var(--white);
+            padding: 5rem 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+        
+        .footer-logo {
+            font-family: "Roboto", sans-serif;
+            font-weight: 900;
+            font-size: 2.2rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer-logo span {
+            color: var(--accent);
+        }
+        
+        .footer-about p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+        
+        .footer-links h5 {
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            position: relative;
+            display: inline-block;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer-links h5:after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background: var(--accent);
+            bottom: -10px;
+            left: 0;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            padding-left: 15px;
+            font-size: 1.05rem;
+        }
+        
+        .footer-links a:before {
+            content: '\f105';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--accent);
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 20px;
+        }
+        
+        .footer-links a:hover:before {
+            left: 5px;
+        }
+        
+        .social-links {
+            margin-top: 2rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            margin-right: 12px;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+        
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        .newsletter-form {
+            position: relative;
+            margin-top: 1.5rem;
+        }
+        
+        .newsletter-form .form-control {
+            height: 54px;
+            border-radius: 4px;
+            padding-right: 120px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--white);
+            font-size: 1rem;
+        }
+        
+        .newsletter-form .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .newsletter-form .btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            height: 44px;
+            border-radius: 4px;
+            padding: 0 25px;
+            background: var(--accent);
+            border-color: var(--accent);
+            font-size: 0.9rem;
+        }
+        
+        .newsletter-form .btn:hover {
+            background: var(--accent-light);
+            border-color: var(--accent-light);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            position: relative;
+            z-index: 1;
+            font-size: 1rem;
+        }
+        
+        /* ======= BACK TO TOP BUTTON ======= */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--white);
+            font-size: 1.5rem;
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        /* ======= ANIMATIONS ======= */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .animate-fadeInLeft {
+            animation: fadeInLeft 0.8s ease-out;
+        }
+        
+        .animate-fadeInRight {
+            animation: fadeInRight 0.8s ease-out;
+        }
+        
+        .animate-zoomIn {
+            animation: zoomIn 0.8s ease-out;
+        }
+        
+        .animate-bounce {
+            animation: bounce 2s ease infinite;
+        }
+        
+        .animate-delay-100 {
+            animation-delay: 0.1s;
+        }
+        
+        .animate-delay-200 {
+            animation-delay: 0.2s;
+        }
+        
+        .animate-delay-300 {
+            animation-delay: 0.3s;
+        }
+        
+        .animate-delay-400 {
+            animation-delay: 0.4s;
+        }
+        
+        .animate-delay-500 {
+            animation-delay: 0.5s;
+        }
+        
+        /* ======= RESPONSIVE ADJUSTMENTS ======= */
+        @media (max-width: 1199.98px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .stat-number {
+                font-size: 3.5rem;
+            }
+        }
+        
+        @media (max-width: 991.98px) {
+            .navbar-brand {
+                font-size: 1.8rem;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            section {
+                padding: 80px 0;
+            }
+            
+            .contact-info, .contact-form {
+                padding: 2.5rem;
+            }
+            
+            .objective-content {
+                padding: 2.5rem;
+            }
+            
+            .testimonial-item {
+                padding: 2.5rem;
+            }
+            
+            .stat-number {
+                font-size: 3rem;
+            }
+            
+            .service-icon {
+                width: 90px;
+                height: 90px;
+                line-height: 90px;
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            .navbar-brand {
+                font-size: 1.6rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .contact-info {
+                margin-bottom: 2rem;
+            }
+            
+            .stat-item {
+                margin-bottom: 30px;
+            }
+            
+            .hero-image img {
+                max-width: 80%;
+                margin: 0 auto;
+                display: block;
+            }
+            
+            .service-icon {
+                width: 80px;
+                height: 80px;
+                line-height: 80px;
+                font-size: 2rem;
+            }
+            
+            .experience-icon {
+                width: 80px;
+                height: 80px;
+                line-height: 80px;
+                font-size: 2rem;
+            }
+            
+            .contact-icon {
+                width: 60px;
+                height: 60px;
+                line-height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 575.98px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .about-card .card-header, 
+            .about-card .card-body,
+            .experience-item,
+            .service-card,
+            .contact-info,
+            .contact-form,
+            .testimonial-item {
+                padding: 2rem;
+            }
+            
+            .objective-content {
+                padding: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .stat-symbol {
+                font-size: 1.8rem;
+                right: -15px;
+            }
+            
+            .hero {
+                padding-top: 150px;
+            }
+            
+            .service-icon {
+                width: 70px;
+                height: 70px;
+                line-height: 70px;
+                font-size: 1.8rem;
+            }
+            
+            .experience-icon {
+                width: 70px;
+                height: 70px;
+                line-height: 70px;
+                font-size: 1.8rem;
+            }
+            
+            .contact-icon {
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .btn {
+                padding: 0.75rem 2rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">INFO<span>BYTES</span></div>
+            <div class="preloader-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">INFO<span>BYTES</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">ABOUT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experience">EXPERIENCE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">SERVICES</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">TESTIMONIALS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#organization">TEAM</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">CONTACT</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <div class="row align-items-center">
+                <div class="col-lg-6 animate-fadeInLeft">
+                    <h1>INNOVATIVE IT SOLUTIONS</h1>
+                    <p>Established in 2018, Infobytes Solutions Inc. is dedicated to providing cutting-edge information technology products and services to meet the evolving needs of our clients.</p>
+                    <a href="#contact" class="btn btn-primary me-3">GET IN TOUCH</a>
+                    <a href="#services" class="btn btn-outline-light">OUR SERVICES</a>
+                </div>
+                <div class="col-lg-6 hero-image animate-fadeInRight">
+                    <img src="logo.png" alt="IT Solutions" class="img-fluid">
+                </div>
+            </div>
+        </div>
+        <svg class="hero-shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="#ffffff" fill-opacity="1" d="M0,320L48,312C96,304,192,288,288,277.3C384,267,480,259,576,262.3C672,266,768,280,864,284.7C960,290,1056,285,1152,278C1248,271,1344,262,1392,256.7L1440,250L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+
+        </svg>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section section-bg-pattern">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">COMPANY PROFILE</h2>
+            <p class="section-subtitle text-center" data-aos="fade-up" data-aos-delay="100">Learn more about our company's history, experience, and product offerings.</p>
+            <div class="row">
+                <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="about-card">
+                        <div class="card-header">
+                            <h3>HISTORY</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Established in 2018, Infobytes Solutions Inc. (ISI) is dedicated to providing advanced and innovative information technology products and services. Recognizing the opportunity to serve as a System Integrator for State Universities, ISI has positioned itself as a key player in the sector.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="about-card">
+                        <div class="card-header">
+                            <h3>INDUSTRY EXPERIENCE</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>For the past seven years, ISI has been honored to partner with some of the Philippines' most esteemed State Universities, enhancing their digital educational platforms. Our clientele includes Mindanao State University - General Santos, Mindanao State University at Naawan, Mindanao State University - Main Campus Marawi, Mindanao State University - Sulu, and Mindanao State University - Tawi-Tawi College of Technology and Oceanography.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="about-card">
+                        <div class="card-header">
+                            <h3>PRODUCT RANGE</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>ISI engages in the retail and wholesale of computer components while delivering comprehensive information technology solutions. These solutions encompass data storage, servers, software licenses, security measures, and the trading of related merchandise.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6" data-aos="fade-up">
+                    <div class="stat-item">
+                        <div class="stat-number-container">
+                            <div class="stat-number" data-count="7">0</div>
+                            <div class="stat-symbol">+</div>
+                        </div>
+                        <div class="stat-text">YEARS OF EXPERIENCE</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-item">
+                        <div class="stat-number-container">
+                            <div class="stat-number" data-count="50">0</div>
+                            <div class="stat-symbol">+</div>
+                        </div>
+                        <div class="stat-text">PROJECTS COMPLETED</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-item">
+                        <div class="stat-number-container">
+                            <div class="stat-number" data-count="25">0</div>
+                            <div class="stat-symbol">+</div>
+                        </div>
+                        <div class="stat-text">TEAM MEMBERS</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-item">
+                        <div class="stat-number-container">
+                            <div class="stat-number" data-count="15">0</div>
+                            <div class="stat-symbol">+</div>
+                        </div>
+                        <div class="stat-text">PARTNER UNIVERSITIES</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience-section">
+        <div class="container">
+            <h2 class="section-title text-center" data-aos="fade-up">OUR EXPERIENCE</h2>
+            <p class="section-subtitle text-center" data-aos="fade-up" data-aos-delay="100">We have extensive experience working with educational institutions and organizations across the Philippines.</p>
+            <div class="row">
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="experience-item">
+                        <div class="experience-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h3>STATE UNIVERSITIES PARTNERSHIP</h3>
+                        <p>We've established strong partnerships with leading State Universities across the Philippines, providing them with tailored IT solutions that enhance their educational infrastructure.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="experience-item">
+                        <div class="experience-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>DIGITAL EDUCATIONAL PLATFORMS</h3>
+                        <p>Our team has successfully implemented digital educational platforms that have transformed the learning experience for thousands of students across multiple campuses.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="experience-item">
+                        <div class="experience-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3>SYSTEM INTEGRATION</h3>
+                        <p>As a trusted System Integrator, we've helped organizations seamlessly connect their disparate systems, improving efficiency and data flow across departments.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="experience-item">
+                        <div class="experience-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>SECURITY IMPLEMENTATION</h3>
+                        <p>We've implemented robust security measures for our clients, ensuring their data and systems are protected against evolving cyber threats.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <svg class="section-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="#ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,133.3C672,139,768,181,864,181.3C960,181,1056,139,1152,133.3C1248,128,1344,160,1392,176L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <h2 class="section-title text-center" data-aos="fade-up">OUR SERVICES</h2>
+            <p class="section-subtitle text-center" data-aos="fade-up" data-aos-delay="100">We offer a comprehensive range of IT solutions tailored to meet your specific needs.</p>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h3>SYSTEM INTEGRATION</h3>
+                        <p>We specialize in providing clients with integrated computing systems that combine hardware, software, networking, and storage products from a diverse range of vendors.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>DATA STORAGE SOLUTIONS</h3>
+                        <p>Our data storage solutions are designed to securely manage and protect your valuable information while ensuring easy accessibility when needed.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>SECURITY MEASURES</h3>
+                        <p>We implement comprehensive security measures to protect your systems and data from unauthorized access and potential threats.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h3>COMPUTER COMPONENTS</h3>
+                        <p>We offer retail and wholesale of high-quality computer components to meet your hardware needs, from individual parts to bulk orders.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="600">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-file-contract"></i>
+                        </div>
+                        <h3>SOFTWARE LICENSING</h3>
+                        <p>We provide software licensing services to ensure your organization remains compliant while accessing the tools needed for success.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="700">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>TECHNICAL SUPPORT</h3>
+                        <p>Our dedicated technical support team is always ready to assist with any issues, ensuring minimal downtime and maximum productivity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title text-center" data-aos="fade-up">CLIENT TESTIMONIALS</h2>
+            <p class="section-subtitle text-center" data-aos="fade-up" data-aos-delay="100">Hear what our clients have to say about our services and solutions.</p>
+            <div class="testimonial-slider" data-aos="fade-up" data-aos-delay="200">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="testimonial-item">
+                            <div class="testimonial-content">
+                                <p class="testimonial-text">Infobytes Solutions has transformed our university's IT infrastructure. Their expertise and dedication to quality service have made them an invaluable partner in our digital transformation journey.</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Testimonial Author">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h4>DR. RAMON SANTOS</h4>
+                                    <p>IT Director, Mindanao State University</p>
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="testimonial-item">
+                            <div class="testimonial-content">
+                                <p class="testimonial-text">The system integration services provided by Infobytes Solutions have significantly improved our operational efficiency. Their team's technical knowledge and problem-solving skills are exceptional.</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Testimonial Author">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h4>MARIA REYES</h4>
+                                    <p>CTO, PhilTech Solutions</p>
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="testimonial-item">
+                            <div class="testimonial-content">
+                                <p class="testimonial-text">We've been working with Infobytes Solutions for over 5 years, and they consistently deliver high-quality IT solutions. Their security implementation has protected our sensitive data from numerous threats.</p>
+                            </div>
+                            <div class="testimonial-author">
+                                <div class="testimonial-avatar">
+                                    <img src="https://randomuser.me/api/portraits/men/62.jpg" alt="Testimonial Author">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h4>ANTONIO DELA CRUZ</h4>
+                                    <p>CEO, Manila Business Solutions</p>
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-controls">
+                    <button class="testimonial-control-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="testimonial-control-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <svg class="section-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="#ffffff" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,250.7C960,235,1056,181,1152,165.3C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </section>
+
+    <!-- Objective Section -->
+    <section id="objective" class="objective-section">
+        <div class="container">
+            <h2 class="section-title text-center text-white" data-aos="fade-up">OUR OBJECTIVE</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
+                    <div class="objective-content">
+                        <p>The primary goal of ISI is to establish itself as a trusted System Integrator across the nation. Our commitment is to provide cutting-edge and innovative Information Technology Solutions that not only meet but exceed the expectations of our clients.</p>
+                        <p>We focus on understanding the unique needs of each client, allowing us to develop tailored solutions that enhance the efficiency and effectiveness of their systems. By leveraging the latest technologies and industry best practices, we strive to empower our clients to achieve their objectives and stay ahead in a rapidly evolving digital landscape.</p>
+                        <p>Our dedication to quality and customer satisfaction drives us to continually improve and adapt our services in response to the changing needs of the market.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <svg class="section-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="#f8f9fa" fill-opacity="1" d="M0,160L48,170.7C96,181,192,203,288,202.7C384,203,480,181,576,186.7C672,192,768,224,864,218.7C960,213,1056,171,1152,165.3C1248,160,1344,192,1392,208L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </section>
+
+    <!-- Organization Chart Section -->
+    <section id="organization" class="org-chart-section">
+        <div class="container">
+            <h2 class="section-title text-center" data-aos="fade-up">LEADERSHIP TEAM</h2>
+            <p class="section-subtitle text-center" data-aos="fade-up" data-aos-delay="100">Meet our dedicated team of professionals who work together to deliver exceptional IT solutions.</p>
+            
+            <div class="org-chart" data-aos="fade-up" data-aos-delay="200">
+                <div class="org-chart-container">
+                    <!-- Executive Leadership -->
+                    <div class="org-level">
+                        <div class="text-center mb-4">
+                            <div class="org-level-title">EXECUTIVE LEADERSHIP</div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-4 mb-4">
+                                <div class="org-box animate-zoomIn">
+                                    <div class="org-name">RAYMUND E. LIBORO</div>
+                                    <div class="org-title">President & CEO</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="org-box animate-zoomIn animate-delay-200">
+                                    <div class="org-name">ATTY. ROMMEL LLOYD P. MARTINEZ</div>
+                                    <div class="org-title">Executive Vice-President</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Department Heads -->
+                    <div class="org-level">
+                        <div class="text-center mb-4">
+                            <div class="org-level-title">DEPARTMENT HEADS</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-4">
+                                <div class="org-box animate-fadeInUp">
+                                    <div class="org-name">FLORITA A. CODILLA</div>
+                                    <div class="org-title">Finance Director</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="org-box animate-fadeInUp animate-delay-100">
+                                    <div class="org-name">MELODY B. VALENIA</div>
+                                    <div class="org-title">HR & Administrative Manager</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="org-box animate-fadeInUp animate-delay-200">
+                                    <div class="org-name">JULYSES E. MORA</div>
+                                    <div class="org-title">Bid Compliance Manager</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="org-box animate-fadeInUp animate-delay-300">
+                                    <div class="org-name">MICHAEL T. ORIARTE</div>
+                                    <div class="org-title">Project Management Director</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="org-box animate-fadeInUp animate-delay-400">
+                                    <div class="org-name">LIGOR B. MEDINA</div>
+                                    <div class="org-title">Technology Solutions Director</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <svg class="section-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="#ffffff" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,250.7C960,235,1056,181,1152,165.3C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners-section">
+        <div class="container">
+            <h2 class="section-title text-center" data-aos="fade-up">OUR PARTNERS</h2>
+            <p class="section-subtitle text-center" data-aos="fade-up" data-aos-delay="100">We collaborate with leading organizations to deliver the best solutions to our clients.</p>
+            <div class="row">
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="partner-logo">
+                        <img src="br.png" alt="Partner Logo">
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="partner-logo">
+                        <img src="dell.png" alt="Partner Logo">
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="partner-logo">
+                        <img src="nt.png" alt="Partner Logo">
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="partner-logo">
+                        <img src="vst.png" alt="Partner Logo">
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="partner-logo">
+                        <img src="mb.png" alt="Partner Logo">
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="partner-logo">
+                        <img src="lea.png" alt="Partner Logo">
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="partner-logo">
+                        <img src="ccci.png" alt="Partner Logo">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title text-center" data-aos="fade-up">GET IN TOUCH</h2>
+            <p class="section-subtitle text-center" data-aos="fade-up" data-aos-delay="100">Have questions or need assistance? Contact us today and our team will be happy to help.</p>
+            <div class="row">
+                <div class="col-lg-5 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="contact-info">
+                        <h3>CONTACT INFORMATION</h3>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h5>ADDRESS</h5>
+                                <p>Unit 1101 139 Corporate Center Bldg., 139 Valero St., Salcedo Village, Bel-Air, Makati City 1227</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h5>EMAIL</h5>
+                                <p>info@infobytes.solutions</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h5>PHONE</h5>
+                                <p>(02) 8823-8069</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h5>WEBSITE</h5>
+                                <p>https://infobytes.solutions/</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7" data-aos="fade-up" data-aos-delay="300">
+                    <div class="contact-form">
+                        <h3>SEND US A MESSAGE</h3>
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Your Name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" placeholder="Your Email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Subject" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                            </div>
+                            <div class="form-submit">
+                                <button type="submit" class="btn btn-primary">SEND MESSAGE</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content" data-aos="fade-up">
+                <h2>READY TO TRANSFORM YOUR IT INFRASTRUCTURE?</h2>
+                <p>Partner with Infobytes Solutions Inc. for innovative and reliable IT solutions tailored to your needs.</p>
+                <a href="#contact" class="btn btn-light animate-bounce">CONTACT US TODAY</a>
+            </div>
+        </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5 footer-about">
+                    <a href="#" class="footer-logo">
+                        <img src="logo.png" alt="InfoBytes Logo">
+                    </a>
+                    
+                    <p>Dedicated to providing advanced and innovative information technology products and services since 2018.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 footer-links">
+                    <h5>QUICK LINKS</h5>
+                    <ul>
+                        <li><a href="#home">HOME</a></li>
+                        <li><a href="#about">ABOUT</a></li>
+                        <li><a href="#services">SERVICES</a></li>
+                        <li><a href="#contact">CONTACT</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 footer-links">
+                    <h5>OUR SERVICES</h5>
+                    <ul>
+                        <li><a href="#services">SYSTEM INTEGRATION</a></li>
+                        <li><a href="#services">DATA STORAGE</a></li>
+                        <li><a href="#services">SECURITY MEASURES</a></li>
+                        <li><a href="#services">SOFTWARE LICENSING</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4 mb-4">
+                    <h5>NEWSLETTER</h5>
+                    <p>Subscribe to our newsletter to receive updates on our latest services and offers.</p>
+                    <div class="newsletter-form">
+                        <input type="email" class="form-control" placeholder="Your Email">
+                        <button class="btn" type="submit">SUBSCRIBE</button>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Infobytes Solutions Inc. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Preloader
+        window.addEventListener('load', function() {
+            const preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function() {
+                preloader.style.display = 'none';
+            }, 500);
+        });
+        
+        // Initialize AOS Animation
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false,
+            disable: 'mobile'
+        });
+        
+        // Navbar Scroll Effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Active Navigation Link
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        window.addEventListener('scroll', function() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Back to Top Button
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Form Submission
+        const contactForm = document.getElementById('contactForm');
+        
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Form validation and submission logic would go here
+                const formSubmitBtn = this.querySelector('button[type="submit"]');
+                const originalText = formSubmitBtn.innerHTML;
+                
+                formSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> SENDING...';
+                formSubmitBtn.disabled = true;
+                
+                // Simulate form submission
+                setTimeout(function() {
+                    const successMessage = document.createElement('div');
+                    successMessage.className = 'alert alert-success mt-3';
+                    successMessage.innerHTML = '<i class="fas fa-check-circle me-2"></i> Thank you for your message! We will get back to you soon.';
+                    
+                    contactForm.reset();
+                    contactForm.appendChild(successMessage);
+                    
+                    formSubmitBtn.innerHTML = originalText;
+                    formSubmitBtn.disabled = false;
+                    
+                    // Remove success message after 5 seconds
+                    setTimeout(function() {
+                        successMessage.remove();
+                    }, 5000);
+                }, 1500);
+            });
+        }
+        
+        // Mobile Menu Toggle
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+        
+        if (navbarToggler) {
+            navbarToggler.addEventListener('click', function() {
+                if (window.scrollY < 50 && !navbar.classList.contains('scrolled')) {
+                    navbar.classList.toggle('scrolled');
+                }
+            });
+            
+            // Close mobile menu when clicking a nav link
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (navbarCollapse.classList.contains('show')) {
+                        navbarToggler.click();
+                    }
+                });
+            });
+        }
+        
+        // Smooth scrolling for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Counter Animation for Stats
+        const statNumbers = document.querySelectorAll('.stat-number');
+        
+        function animateCounter(el) {
+            const target = parseInt(el.getAttribute('data-count'));
+            const duration = 2000; // 2 seconds
+            const step = target / (duration / 16); // 16ms per frame (approx 60fps)
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    clearInterval(timer);
+                    el.textContent = target;
+                } else {
+                    el.textContent = Math.floor(current);
+                }
+            }, 16);
+        }
+        
+        // Intersection Observer for Stats Animation
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    statNumbers.forEach(animateCounter);
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        // Observe the stats section
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+        
+        // Testimonial Slider Functionality
+        const testimonialItems = document.querySelectorAll('.testimonial-item');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        let currentSlide = 0;
+        
+        // Hide all testimonials except the first one on mobile
+        function setupTestimonials() {
+            if (window.innerWidth < 768) {
+                testimonialItems.forEach((item, index) => {
+                    if (index !== currentSlide) {
+                        item.parentElement.style.display = 'none';
+                    } else {
+                        item.parentElement.style.display = 'block';
+                    }
+                });
+            } else {
+                testimonialItems.forEach(item => {
+                    item.parentElement.style.display = 'block';
+                });
+            }
+        }
+        
+        // Initialize testimonials
+        setupTestimonials();
+        
+        // Update on window resize
+        window.addEventListener('resize', setupTestimonials);
+        
+        // Next button functionality
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function() {
+                if (window.innerWidth < 768) {
+                    testimonialItems[currentSlide].parentElement.style.display = 'none';
+                    currentSlide = (currentSlide + 1) % testimonialItems.length;
+                    testimonialItems[currentSlide].parentElement.style.display = 'block';
+                    testimonialItems[currentSlide].classList.add('animate-fadeInRight');
+                    setTimeout(() => {
+                        testimonialItems[currentSlide].classList.remove('animate-fadeInRight');
+                    }, 800);
+                }
+            });
+        }
+        
+        // Previous button functionality
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function() {
+                if (window.innerWidth < 768) {
+                    testimonialItems[currentSlide].parentElement.style.display = 'none';
+                    currentSlide = (currentSlide - 1 + testimonialItems.length) % testimonialItems.length;
+                    testimonialItems[currentSlide].parentElement.style.display = 'block';
+                    testimonialItems[currentSlide].classList.add('animate-fadeInLeft');
+                    setTimeout(() => {
+                        testimonialItems[currentSlide].classList.remove('animate-fadeInLeft');
+                    }, 800);
+                }
+            });
+        }
+        
+        // Newsletter form submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const emailInput = this.querySelector('input[type="email"]');
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                
+                if (emailInput.value.trim() === '') {
+                    return;
+                }
+                
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                submitBtn.disabled = true;
+                
+                // Simulate subscription
+                setTimeout(function() {
+                    const successMessage = document.createElement('div');
+                    successMessage.className = 'mt-2 text-white';
+                    successMessage.innerHTML = '<i class="fas fa-check-circle me-1"></i> Thank you for subscribing!';
+                    
+                    emailInput.value = '';
+                    newsletterForm.appendChild(successMessage);
+                    
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // Remove success message after 3 seconds
+                    setTimeout(function() {
+                        successMessage.remove();
+                    }, 3000);
+                }, 1500);
+            });
+        }
+    </script>
+</body>
+</html>
