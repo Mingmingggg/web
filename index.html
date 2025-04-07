@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infobytes Solutions Inc. - Advanced IT Solutions</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -15,8 +16,11 @@
 <body>
     <!-- Preloader -->
     <div id="preloader">
-        <div class="loader">
-            <div class="loader-inner"></div>
+        <div class="loader-container">
+            <div class="spinner-border text-light" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="loader-text">Infobytes Solutions Inc.</div>
         </div>
     </div>
 
@@ -49,7 +53,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-7" data-aos="fade-right" data-aos-delay="200">
-                    <h1 class="hero-title">Advanced IT Solutions for Future Challenges</h1>
+                    <h1 class="hero-title"><span class="typing-text"></span><span class="cursor">|</span></h1>
                     <p class="hero-subtitle">Providing innovative information technology products and services since 2018</p>
                     <div class="hero-btns">
                         <a href="#services" class="btn btn-primary btn-lg">Our Services</a>
@@ -57,7 +61,8 @@
                     </div>
                 </div>
                 <div class="col-lg-5" data-aos="fade-left" data-aos-delay="400">
-                    
+                    <div class="hero-image-container">
+                    </div>
                 </div>
             </div>
         </div>
@@ -73,6 +78,7 @@
         <div class="container">
             <div class="section-header text-center" data-aos="fade-up">
                 <h2>About Infobytes Solutions Inc.</h2>
+                <div class="section-divider"></div>
                 <p>Your trusted partner in information technology since 2018</p>
             </div>
             <div class="row align-items-center">
@@ -130,6 +136,7 @@
         <div class="container">
             <div class="section-header text-center" data-aos="fade-up">
                 <h2>Our Services</h2>
+                <div class="section-divider"></div>
                 <p>Comprehensive IT solutions tailored to your needs</p>
             </div>
             <div class="row">
@@ -140,6 +147,7 @@
                         </div>
                         <h3>System Integration</h3>
                         <p>Integration of diverse hardware and software components to create cohesive, functional systems.</p>
+                        <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
@@ -149,6 +157,7 @@
                         </div>
                         <h3>Data Storage Solutions</h3>
                         <p>Secure, scalable data storage systems designed to protect your valuable information.</p>
+                        <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
@@ -158,6 +167,7 @@
                         </div>
                         <h3>Security Measures</h3>
                         <p>Comprehensive protection against unauthorized access and data breaches.</p>
+                        <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
@@ -167,6 +177,7 @@
                         </div>
                         <h3>Software Licensing</h3>
                         <p>Expert guidance for compliance and cost-effectiveness in software licensing.</p>
+                        <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
@@ -176,6 +187,7 @@
                         </div>
                         <h3>Networking Solutions</h3>
                         <p>Robust networking infrastructure design and implementation for optimal connectivity.</p>
+                        <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="600">
@@ -185,6 +197,7 @@
                         </div>
                         <h3>IT Consultation</h3>
                         <p>Technology decision support aligned with your business objectives and goals.</p>
+                        <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -196,6 +209,7 @@
         <div class="container">
             <div class="section-header text-center" data-aos="fade-up">
                 <h2>Solutions By Sector</h2>
+                <div class="section-divider"></div>
                 <p>Tailored solutions for different industry needs</p>
             </div>
             <div class="row">
@@ -212,7 +226,7 @@
                             <li>Library management systems</li>
                             <li>Administrative workflow automation</li>
                         </ul>
-                    
+                        <a href="#contact" class="btn btn-outline-primary mt-3">Get Started</a>
                     </div>
                 </div>
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
@@ -228,7 +242,7 @@
                             <li>Cloud migration and management</li>
                             <li>Cybersecurity and compliance</li>
                         </ul>
-                      
+                        <a href="#contact" class="btn btn-outline-primary mt-3">Get Started</a>
                     </div>
                 </div>
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="500">
@@ -244,7 +258,7 @@
                             <li>Compliance and security frameworks</li>
                             <li>Disaster recovery and business continuity</li>
                         </ul>
-                  
+                        <a href="#contact" class="btn btn-outline-primary mt-3">Get Started</a>
                     </div>
                 </div>
             </div>
@@ -256,155 +270,160 @@
         <div class="container">
             <div class="section-header text-center" data-aos="fade-up">
                 <h2>Our Key Partners</h2>
+                <div class="section-divider"></div>
                 <p>Trusted by leading institutions</p>
             </div>
-            <div class="partners-slider text-center" data-aos="fade-up" data-aos-delay="200">
-                <div class="row justify-content-center">
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="dell.png" alt="MSU-GenSan" class="img-fluid-1">
+            
+            <div class="partners-carousel-container" data-aos="fade-up" data-aos-delay="200">
+                <!-- First Row Carousel -->
+                <div class="swiper partners-carousel">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <div class="partner-logo">
+                                    <img src="dell.png" alt="DELL" class="img-fluid-1">
+                                </div>
+                                <h5>DELL</h5>
                             </div>
-                            <h5>DELL</h5>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="HUAWEI.png" alt="MSU-Naawan" class="img-fluid-1">
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <div class="partner-logo">
+                                    <img src="HUAWEI.png" alt="HUAWEI" class="img-fluid-1">
+                                </div>
+                                <h5>HUAWEI</h5>
                             </div>
-                            <h5>HUAWEI</h5>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="vst.png" alt="MSU-Naawan" class="img-fluid-1">
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <div class="partner-logo">
+                                    <img src="vst.png" alt="VST" class="img-fluid-1">
+                                </div>
+                                <h5>VST</h5>
                             </div>
-                            <h5>VST</h5>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="mb.png" alt="MSU-Marawi" class="img-fluid-1">
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <div class="partner-logo">
+                                    <img src="mb.png" alt="MBPS" class="img-fluid-1">
+                                </div>
+                                <h5>MBPS</h5>
                             </div>
-                            <h5>MBPS</h5>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="REMAX.png" alt="MSU-Marawi" class="img-fluid-1">
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <div class="partner-logo">
+                                    <img src="REMAX.png" alt="REMAX" class="img-fluid-1">
+                                </div>
+                                <h5>REMAX</h5>
                             </div>
-                            <h5>REMAX</h5>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="nt.png" alt="MSU-Sulu" class="img-fluid-1">
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <div class="partner-logo">
+                                    <img src="nt.png" alt="NTEK" class="img-fluid-1">
+                                </div>
+                                <h5>NTEK</h5>
                             </div>
-                            <h5>NTEK</h5>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="lea.png" alt="MSU-Sulu" class="img-fluid-1">
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <div class="partner-logo">
+                                    <img src="lea.png" alt="LEADTECH" class="img-fluid-1">
+                                </div>
+                                <h5>LEADTECH</h5>
                             </div>
-                            <h5>LEADTECH</h5>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="YUGA.png" alt="MSU-Sulu" class="img-fluid-1">
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <div class="partner-logo">
+                                    <img src="YUGA.png" alt="YUGABYTE" class="img-fluid-1">
+                                </div>
+                                <h5>YUGABYTE</h5>
                             </div>
-                            <h5>YUGABYTE</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="MS.png" alt="MSU-Sulu" class="img-fluid-1">
-                            </div>
-                            <h5>MICROSOFT</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="CCCI.png" alt="MSU-Sulu" class="img-fluid-1">
-                            </div>
-                            <h5>CCCI</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="for.png" alt="MSU-TCTO" class="img-fluid-1">
-                            </div>
-                            <h5>FORTINET</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="VERTIV.png" alt="MSU-TCTO" class="img-fluid-1">
-                            </div>
-                            <h5>VERTIV</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="MEDIABLAST.png" alt="MSU-TCTO" class="img-fluid-1">
-                            </div>
-                            <h5>MEDIABLAST</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="GEMENI.png" alt="MSU-TCTO" class="img-fluid-1">
-                            </div>
-                            <h5>GEMENI</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="mma.png" alt="MSU-TCTO" class="img-fluid-1">
-                            </div>
-                            <h5>MMA</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="BZN.png" alt="MSU-TCTO" class="img-fluid-1">
-                            </div>
-                            <h5>BZN</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="ARUBA.png" alt="MSU-TCTO" class="img-fluid-1">
-                            </div>
-                            <h5>ARUBA</h5>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2 mb-4">
-                        <div class="partner-item">
-                            <div class="partner-logo">
-                                <img src="DATALAKE.png" alt="MSU-Sulu" class="img-fluid-1">
-                            </div>
-                            <h5>DATALAKE</h5>
                         </div>
                     </div>
                 </div>
+                
+                <!-- Second Row Carousel -->
+                <div class="swiper partners-carousel-2 mt-4">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <div class="partner-logo">
+                                    <img src="MS.png" alt="MICROSOFT" class="img-fluid-1">
+                                </div>
+                                <h5>MICROSOFT</h5>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <div class="partner-logo">
+                                    <img src="CCCI.png" alt="CCCI" class="img-fluid-1">
+                                </div>
+                                <h5>CCCI</h5>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <div class="partner-logo">
+                                    <img src="for.png" alt="FORTINET" class="img-fluid-1">
+                                </div>
+                                <h5>FORTINET</h5>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <div class="partner-logo">
+                                    <img src="VERTIV.png" alt="VERTIV" class="img-fluid-1">
+                                </div>
+                                <h5>VERTIV</h5>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <div class="partner-logo">
+                                    <img src="MEDIABLAST.png" alt="MEDIABLAST" class="img-fluid-1">
+                                </div>
+                                <h5>MEDIABLAST</h5>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <div class="partner-logo">
+                                    <img src="GEMENI.png" alt="GEMENI" class="img-fluid-1">
+                                </div>
+                                <h5>GEMENI</h5>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <div class="partner-logo">
+                                    <img src="BZN.png" alt="BZN" class="img-fluid-1">
+                                </div>
+                                <h5>BZN</h5>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <div class="partner-logo">
+                                    <img src="ARUBA.png" alt="ARUBA" class="img-fluid-1">
+                                </div>
+                                <h5>ARUBA</h5>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="partner-item">
+                                <div class="partner-logo">
+                                    <img src="DATALAKE.png" alt="DATALAKE" class="img-fluid-1">
+                                </div>
+                                <h5>DATALAKE</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="swiper-pagination"></div>
             </div>
         </div>
     </section>
@@ -414,14 +433,15 @@
         <div class="container">
             <div class="section-header text-center" data-aos="fade-up">
                 <h2>Certifications & Compliance</h2>
+                <div class="section-divider"></div>
                 <p>Our commitment to excellence and regulatory standards</p>
             </div>
             <div class="row align-items-center">
                 <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
                     <div class="certification-content">
                         <h3>New Government Procurement Act</h3>
-                        <p class="lead">Infobytes Solutions Inc. is proud to announce our compliance with the New Government Procurement Act (Republic Act No. 12009).</p>
-                        <p>This certification enables us to participate in government procurement activities with the highest standards of transparency, accountability, and efficiency. Our compliance with RA 12009 demonstrates our commitment to ethical business practices and our readiness to serve government institutions with integrity.</p>
+                        <p class="lead">Infobytes Solutions Inc. is proud to announce our completion with the New Government Procurement Act (Republic Act No. 12009).</p>
+                        <p>This training enables us to participate in government procurement activities with the highest standards of transparency, accountability, and efficiency. Our compliance with RA 12009 demonstrates our commitment to ethical business practices and our readiness to serve government institutions with integrity.</p>
                         <div class="certification-features">
                             <div class="feature-item">
                                 <i class="fas fa-check-circle"></i>
@@ -460,6 +480,7 @@
         <div class="container">
             <div class="section-header text-center" data-aos="fade-up">
                 <h2>Contact Us</h2>
+                <div class="section-divider"></div>
                 <p>Get in touch with our team</p>
             </div>
             <div class="row">
@@ -485,7 +506,7 @@
                             <div class="icon"><i class="fas fa-envelope"></i></div>
                             <div class="text">
                                 <h4>Email</h4>
-                                <p>admin@infobytessolutionsinc.com</p>
+                                <p>info@infobytessolutionsinc.com</p>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -590,7 +611,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
-
