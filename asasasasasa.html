@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay Mamatid Hall HRMS - System Diagram</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .diagram-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            overflow: auto;
+        }
+        #systemDiagram {
+            max-width: 100%;
+        }
+        .controls {
+            position: sticky;
+            top: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px 0;
+            z-index: 100;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .module {
+            fill: #fff;
+            stroke: #333;
+            stroke-width: 2px;
+            rx: 5;
+            ry: 5;
+        }
+        .module-user { fill: #e3f2fd; }
+        .module-auth { fill: #fff8e1; }
+        .module-core { fill: #e8f5e9; }
+        .module-data { fill: #f3e5f5; }
+        .module-infra { fill: #fbe9e7; }
+        .module-external { fill: #e0f7fa; }
+        .connection {
+            stroke: #666;
+            stroke-width: 1.5px;
+        }
+        .module-text {
+            font-size: 12px;
+            font-weight: 500;
+            text-anchor: middle;
+            pointer-events: none;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border: 1px solid #333;
+            border-radius: 3px;
+        }
+        .btn-export {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-export:hover {
+            background-color: #45a049;
+            color: white;
+        }
+        .btn-zoom {
+            background-color: #2196F3;
+            color: white;
+        }
+        .btn-zoom:hover {
+            background-color: #0b7dda;
+            color: white;
+        }
+        .btn-reset {
+            background-color: #f44336;
+            color: white;
+        }
+        .btn-reset:hover {
+            background-color: #da190b;
+            color: white;
+        }
+        .tooltip-inner {
+            max-width: 300px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid py-4">
+        <div class="controls mb-3">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="h3">Barangay Mamatid Hall HRMS - System Diagram</h1>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="btn-group">
+                        <button id="zoomIn" class="btn btn-zoom"><i class="bi bi-zoom-in"></i> Zoom In</button>
+                        <button id="zoomOut" class="btn btn-zoom"><i class="bi bi-zoom-out"></i> Zoom Out</button>
+                        <button id="resetZoom" class="btn btn-reset"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+                        <button id="exportPNG" class="btn btn-export"><i class="bi bi-download"></i> Export as PNG</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-9">
+                <div class="diagram-container">
+                    <canvas id="systemDiagram" width="1200" height="800"></canvas>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">Legend</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #e3f2fd;"></div>
+                            <div>User Access Layer</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #fff8e1;"></div>
+                            <div>Authentication & Security</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #e8f5e9;"></div>
+                            <div>Core HRMS Modules</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #f3e5f5;"></div>
+                            <div>Data Storage Layer</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #fbe9e7;"></div>
+                            <div>Server Infrastructure</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #e0f7fa;"></div>
+                            <div>External Systems</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title mb-0">System Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Project:</strong> Human Resource Management System</p>
+                        <p><strong>Client:</strong> Barangay Mamatid Hall</p>
+                        <p><strong>Version:</strong> 1.0</p>
+                        <p><strong>Last Updated:</strong> <span id="currentDate"></span></p>
+                        <hr>
+                        <p class="mb-0">Click on any module in the diagram to view details.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="card-title mb-0">System Components Description</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h6>User Access Layer</h6>
+                                <ul>
+                                    <li>HR Staff/Admin</li>
+                                    <li>Barangay Officials</li>
+                                    <li>Regular Employees</li>
+                                </ul>
+                                
+                                <h6>Authentication & Security</h6>
+                                <ul>
+                                    <li>Login System</li>
+                                    <li>Multi-Factor Authentication</li>
+                                    <li>Role-Based Access Control</li>
+                                    <li>Data Encryption</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <h6>Core HRMS Modules</h6>
+                                <ul>
+                                    <li>Employee Database Management</li>
+                                    <li>Attendance Tracking System</li>
+                                    <li>Leave Management</li>
+                                    <li>Payroll Processing</li>
+                                    <li>Performance Evaluation</li>
+                                    <li>Analytics & Reporting</li>
+                                </ul>
+                                
+                                <h6>Data Storage Layer</h6>
+                                <ul>
+                                    <li>MySQL Database</li>
+                                    <li>Document Storage</li>
+                                    <li>Backup System</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <h6>Server Infrastructure</h6>
+                                <ul>
+                                    <li>Web Server (Apache)</li>
+                                    <li>Application Server</li>
+                                    <li>Cloud Services</li>
+                                </ul>
+                                
+                                <h6>External Systems</h6>
+                                <ul>
+                                    <li>Biometric Devices</li>
+                                    <li>Government Systems</li>
+                                    <li>Banking Systems</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for module details -->
+    <div class="modal fade" id="moduleDetailModal" tabindex="-1" aria-labelledby="moduleDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="moduleDetailModalLabel">Module Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="moduleDetailContent">
+                    <!-- Content will be dynamically inserted here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current date
+            const now = new Date();
+            document.getElementById('currentDate').textContent = now.toLocaleDateString();
+
+            // Canvas setup
+            const canvas = document.getElementById('systemDiagram');
+            const ctx = canvas.getContext('2d');
+            let scale = 1;
+            let offsetX = 0;
+            let offsetY = 0;
+            let isDragging = false;
+            let lastX, lastY;
+            
+            // Define modules
+            const modules = [
+                // User Access Layer
+                { id: 'user1', x: 200, y: 50, width: 150, height: 40, text: 'HR Staff/Admin', type: 'user', 
+                  description: 'Primary users with full access to HR functions and administrative capabilities.' },
+                { id: 'user2', x: 400, y: 50, width: 150, height: 40, text: 'Barangay Officials', type: 'user',
+                  description: 'Officials who can view reports and approve certain requests.' },
+                { id: 'user3', x: 600, y: 50, width: 150, height: 40, text: 'Regular Employees', type: 'user',
+                  description: 'Staff who can access personal information, submit requests, and view their records.' },
+                
+                // Authentication Layer
+                { id: 'auth1', x: 200, y: 150, width: 150, height: 40, text: 'Login System', type: 'auth',
+                  description: 'Secure authentication system with username and password validation.' },
+                { id: 'auth2', x: 400, y: 150, width: 150, height: 40, text: 'Multi-Factor Auth', type: 'auth',
+                  description: 'Additional security layer requiring secondary verification via SMS or email.' },
+                { id: 'auth3', x: 600, y: 150, width: 150, height: 40, text: 'Role-Based Access', type: 'auth',
+                  description: 'Controls system access based on user roles and permissions.' },
+                
+                // Core HRMS Modules
+                { id: 'core1', x: 100, y: 250, width: 180, height: 50, text: 'Employee Database', type: 'core',
+                  description: 'Comprehensive employee information management including personal details, employment history, and documents.' },
+                { id: 'core2', x: 300, y: 250, width: 180, height: 50, text: 'Attendance Tracking', type: 'core',
+                  description: 'Biometric attendance system with time tracking, scheduling, and reporting capabilities.' },
+                { id: 'core3', x: 500, y: 250, width: 180, height: 50, text: 'Leave Management', type: 'core',
+                  description: 'Leave application processing, approval workflows, and balance tracking.' },
+                { id: 'core4', x: 700, y: 250, width: 180, height: 50, text: 'Payroll Processing', type: 'core',
+                  description: 'Automated salary computation, deductions management, and payslip generation.' },
+                { id: 'core5', x: 200, y: 330, width: 180, height: 50, text: 'Performance Evaluation', type: 'core',
+                  description: 'Goal setting, performance reviews, and feedback management system.' },
+                { id: 'core6', x: 400, y: 330, width: 180, height: 50, text: 'Analytics & Reporting', type: 'core',
+                  description: 'Standard and custom reports with data visualization capabilities.' },
+                { id: 'core7', x: 600, y: 330, width: 180, height: 50, text: 'System Administration', type: 'core',
+                  description: 'User management, system configuration, and audit trail functionality.' },
+                
+                // Integration Layer
+                { id: 'int1', x: 400, y: 430, width: 180, height: 50, text: 'API Gateway', type: 'core',
+                  description: 'Central interface for all module interactions and external system connections.' },
+                
+                // Data Storage Layer
+                { id: 'data1', x: 100, y: 530, width: 150, height: 40, text: 'Employee Database', type: 'data',
+                  description: 'Stores all employee personal and professional information.' },
+                { id: 'data2', x: 270, y: 530, width: 150, height: 40, text: 'Attendance Records', type: 'data',
+                  description: 'Archives time-in/time-out logs and work hours.' },
+                { id: 'data3', x: 440, y: 530, width: 150, height: 40, text: 'Leave Records', type: 'data',
+                  description: 'Maintains leave applications, approvals, and balances.' },
+                { id: 'data4', x: 610, y: 530, width: 150, height: 40, text: 'Payroll Data', type: 'data',
+                  description: 'Stores salary calculations, deductions, and payment history.' },
+                { id: 'data5', x: 200, y: 590, width: 150, height: 40, text: 'Performance Data', type: 'data',
+                  description: 'Retains performance goals, evaluations, and feedback.' },
+                { id: 'data6', x: 400, y: 590, width: 150, height: 40, text: 'System Logs', type: 'data',
+                  description: 'Records all system activities for security and audit purposes.' },
+                
+                // Server Infrastructure
+                { id: 'infra1', x: 200, y: 680, width: 150, height: 40, text: 'Web Server', type: 'infra',
+                  description: 'Apache HTTP Server hosting the application and handling client requests.' },
+                { id: 'infra2', x: 400, y: 680, width: 150, height: 40, text: 'Database Server', type: 'infra',
+                  description: 'MySQL database server managing data storage, retrieval, and integrity.' },
+                { id: 'infra3', x: 600, y: 680, width: 150, height: 40, text: 'Backup System', type: 'infra',
+                  description: 'Regular backup and recovery system ensuring data protection.' },
+                
+                // External Systems
+                { id: 'ext1', x: 150, y: 750, width: 150, height: 40, text: 'Biometric Devices', type: 'external',
+                  description: 'Fingerprint scanners and other biometric hardware for attendance tracking.' },
+                { id: 'ext2', x: 400, y: 750, width: 150, height: 40, text: 'Government Systems', type: 'external',
+                  description: 'Interfaces with government platforms for compliance reporting.' },
+                { id: 'ext3', x: 650, y: 750, width: 150, height: 40, text: 'Banking Systems', type: 'external',
+                  description: 'Connects with banking services for salary disbursement.' }
+            ];
+            
+            // Define connections between modules
+            const connections = [
+                // User to Auth connections
+                { from: 'user1', to: 'auth1' },
+                { from: 'user2', to: 'auth1' },
+                { from: 'user3', to: 'auth1' },
+                
+                // Auth layer connections
+                { from: 'auth1', to: 'auth2' },
+                { from: 'auth2', to: 'auth3' },
+                
+                // Auth to Core connections
+                { from: 'auth3', to: 'core1' },
+                { from: 'auth3', to: 'core2' },
+                { from: 'auth3', to: 'core3' },
+                { from: 'auth3', to: 'core4' },
+                
+                // Core module connections
+                { from: 'core1', to: 'core5' },
+                { from: 'core2', to: 'core4' },
+                { from: 'core2', to: 'core6' },
+                { from: 'core3', to: 'core4' },
+                { from: 'core5', to: 'core6' },
+                
+                // Core to Integration connections
+                { from: 'core1', to: 'int1' },
+                { from: 'core2', to: 'int1' },
+                { from: 'core3', to: 'int1' },
+                { from: 'core4', to: 'int1' },
+                { from: 'core5', to: 'int1' },
+                { from: 'core6', to: 'int1' },
+                { from: 'core7', to: 'int1' },
+                
+                // Integration to Data connections
+                { from: 'int1', to: 'data1' },
+                { from: 'int1', to: 'data2' },
+                { from: 'int1', to: 'data3' },
+                { from: 'int1', to: 'data4' },
+                { from: 'int1', to: 'data5' },
+                { from: 'int1', to: 'data6' },
+                
+                // Data to Infrastructure connections
+                { from: 'data1', to: 'infra2' },
+                { from: 'data2', to: 'infra2' },
+                { from: 'data3', to: 'infra2' },
+                { from: 'data4', to: 'infra2' },
+                { from: 'data5', to: 'infra2' },
+                { from: 'data6', to: 'infra2' },
+                
+                // Infrastructure connections
+                { from: 'infra1', to: 'infra2' },
+                { from: 'infra2', to: 'infra3' },
+                
+                // External system connections
+                { from: 'ext1', to: 'core2' },
+                { from: 'int1', to: 'ext2' },
+                { from: 'int1', to: 'ext3' }
+            ];
+            
+            // Draw function
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.save();
+                ctx.translate(offsetX, offsetY);
+                ctx.scale(scale, scale);
+                
+                // Draw connections first (so they appear behind modules)
+                connections.forEach(conn => {
+                    const fromModule = modules.find(m => m.id === conn.from);
+                    const toModule = modules.find(m => m.id === conn.to);
+                    
+                    if (fromModule && toModule) {
+                        // Calculate connection points
+                        const fromX = fromModule.x + fromModule.width / 2;
+                        const fromY = fromModule.y + fromModule.height;
+                        const toX = toModule.x + toModule.width / 2;
+                        const toY = toModule.y;
+                        
+                        // Draw connection line
+                        ctx.beginPath();
+                        ctx.moveTo(fromX, fromY);
+                        
+                        // If it's a connection going down (y increases)
+                        if (fromY < toY) {
+                            ctx.lineTo(fromX, fromY + (toY - fromY) / 2);
+                            ctx.lineTo(toX, fromY + (toY - fromY) / 2);
+                            ctx.lineTo(toX, toY);
+                        } else {
+                            // For connections going up or sideways
+                            const midY = (fromY + toY) / 2;
+                            ctx.lineTo(fromX, midY);
+                            ctx.lineTo(toX, midY);
+                            ctx.lineTo(toX, toY);
+                        }
+                        
+                        ctx.strokeStyle = '#666';
+                        ctx.lineWidth = 1.5;
+                        ctx.stroke();
+                        
+                        // Draw arrow at the end
+                        ctx.beginPath();
+                        ctx.moveTo(toX - 5, toY + 5);
+                        ctx.lineTo(toX, toY);
+                        ctx.lineTo(toX + 5, toY + 5);
+                        ctx.stroke();
+                    }
+                });
+                
+                // Draw modules
+                modules.forEach(module => {
+                    // Determine fill color based on module type
+                    let fillColor;
+                    switch(module.type) {
+                        case 'user': fillColor = '#e3f2fd'; break;
+                        case 'auth': fillColor = '#fff8e1'; break;
+                        case 'core': fillColor = '#e8f5e9'; break;
+                        case 'data': fillColor = '#f3e5f5'; break;
+                        case 'infra': fillColor = '#fbe9e7'; break;
+                        case 'external': fillColor = '#e0f7fa'; break;
+                        default: fillColor = '#ffffff';
+                    }
+                    
+                    // Draw module rectangle
+                    ctx.fillStyle = fillColor;
+                    ctx.strokeStyle = '#333';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    roundRect(ctx, module.x, module.y, module.width, module.height, 5);
+                    ctx.fill();
+                    ctx.stroke();
+                    
+                    // Draw module text
+                    ctx.fillStyle = '#333';
+                    ctx.font = '12px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(module.text, module.x + module.width / 2, module.y + module.height / 2);
+                });
+                
+                ctx.restore();
+            }
+            
+            // Helper function to draw rounded rectangles
+            function roundRect(ctx, x, y, width, height, radius) {
+                if (width < 2 * radius) radius = width / 2;
+                if (height < 2 * radius) radius = height / 2;
+                ctx.beginPath();
+                ctx.moveTo(x + radius, y);
+                ctx.arcTo(x + width, y, x + width, y + height, radius);
+                ctx.arcTo(x + width, y + height, x, y + height, radius);
+                ctx.arcTo(x, y + height, x, y, radius);
+                ctx.arcTo(x, y, x + width, y, radius);
+                ctx.closePath();
+                return ctx;
+            }
+            
+            // Initial draw
+            draw();
+            
+            // Zoom functionality
+            document.getElementById('zoomIn').addEventListener('click', function() {
+                scale *= 1.1;
+                draw();
+            });
+            
+            document.getElementById('zoomOut').addEventListener('click', function() {
+                scale *= 0.9;
+                draw();
+            });
+            
+            document.getElementById('resetZoom').addEventListener('click', function() {
+                scale = 1;
+                offsetX = 0;
+                offsetY = 0;
+                draw();
+            });
+            
+            // Pan functionality
+            canvas.addEventListener('mousedown', function(e) {
+                const rect = canvas.getBoundingClientRect();
+                lastX = e.clientX - rect.left;
+                lastY = e.clientY - rect.top;
+                isDragging = true;
+            });
+            
+            canvas.addEventListener('mousemove', function(e) {
+                if (isDragging) {
+                    const rect = canvas.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    offsetX += (x - lastX);
+                    offsetY += (y - lastY);
+                    lastX = x;
+                    lastY = y;
+                    draw();
+                }
+            });
+            
+            canvas.addEventListener('mouseup', function() {
+                isDragging = false;
+            });
+            
+            canvas.addEventListener('mouseleave', function() {
+                isDragging = false;
+            });
+            
+            // Module click handler for showing details
+            canvas.addEventListener('click', function(e) {
+                if (isDragging) return; // Don't show details if we're dragging
+                
+                const rect = canvas.getBoundingClientRect();
+                const clickX = (e.clientX - rect.left - offsetX) / scale;
+                const clickY = (e.clientY - rect.top - offsetY) / scale;
+                
+                // Check if a module was clicked
+                for (const module of modules) {
+                    if (
+                        clickX >= module.x && 
+                        clickX <= module.x + module.width && 
+                        clickY >= module.y && 
+                        clickY <= module.y + module.height
+                    ) {
+                        // Show module details in modal
+                        const modalTitle = document.getElementById('moduleDetailModalLabel');
+                        const modalContent = document.getElementById('moduleDetailContent');
+                        
+                        modalTitle.textContent = module.text;
+                        
+                        // Determine module type text
+                        let moduleTypeText;
+                        switch(module.type) {
+                            case 'user': moduleTypeText = 'User Access Layer'; break;
+                            case 'auth': moduleTypeText = 'Authentication & Security'; break;
+                            case 'core': moduleTypeText = 'Core HRMS Module'; break;
+                            case 'data': moduleTypeText = 'Data Storage Layer'; break;
+                            case 'infra': moduleTypeText = 'Server Infrastructure'; break;
+                            case 'external': moduleTypeText = 'External System'; break;
+                            default: moduleTypeText = 'Module';
+                        }
+                        
+                        // Create content for the modal
+                        modalContent.innerHTML = `
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6>Module Type</h6>
+                                    <p>${moduleTypeText}</p>
+                                    
+                                    <h6>Description</h6>
+                                    <p>${module.description}</p>
+                                    
+                                    <h6>ID</h6>
+                                    <p><code>${module.id}</code></p>
+                                </div>
+                            </div>
+                            
+                            <h6>Connections</h6>
+                            <ul class="list-group">
+                                ${getModuleConnections(module.id)}
+                            </ul>
+                        `;
+                        
+                        // Show the modal
+                        const modal = new bootstrap.Modal(document.getElementById('moduleDetailModal'));
+                        modal.show();
+                        
+                        break;
+                    }
+                }
+            });
+            
+            // Helper function to get module connections
+            function getModuleConnections(moduleId) {
+                let html = '';
+                
+                // Find connections where this module is the source
+                const outgoingConnections = connections.filter(conn => conn.from === moduleId);
+                if (outgoingConnections.length > 0) {
+                    html += '<li class="list-group-item"><strong>Outgoing Connections:</strong><ul>';
+                    outgoingConnections.forEach(conn => {
+                        const toModule = modules.find(m => m.id === conn.to);
+                        if (toModule) {
+                            html += `<li>${toModule.text}</li>`;
+                        }
+                    });
+                    html += '</ul></li>';
+                }
+                
+                // Find connections where this module is the target
+                const incomingConnections = connections.filter(conn => conn.to === moduleId);
+                if (incomingConnections.length > 0) {
+                    html += '<li class="list-group-item"><strong>Incoming Connections:</strong><ul>';
+                    incomingConnections.forEach(conn => {
+                        const fromModule = modules.find(m => m.id === conn.from);
+                        if (fromModule) {
+                            html += `<li>${fromModule.text}</li>`;
+                        }
+                    });
+                    html += '</ul></li>';
+                }
+                
+                if (outgoingConnections.length === 0 && incomingConnections.length === 0) {
+                    html = '<li class="list-group-item">No connections</li>';
+                }
+                
+                return html;
+            }
+            
+            // Export functionality
+            document.getElementById('exportPNG').addEventListener('click', function() {
+                // Create a temporary canvas with the exact size of our current view
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = canvas.width;
+                tempCanvas.height = canvas.height;
+                const tempCtx = tempCanvas.getContext('2d');
+                
+                // Draw white background
+                tempCtx.fillStyle = 'white';
+                tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+                
+                // Draw our diagram on the temporary canvas
+                tempCtx.save();
+                tempCtx.translate(offsetX, offsetY);
+                tempCtx.scale(scale, scale);
+                
+                // Draw connections
+                connections.forEach(conn => {
+                    const fromModule = modules.find(m => m.id === conn.from);
+                    const toModule = modules.find(m => m.id === conn.to);
+                    
+                    if (fromModule && toModule) {
+                        const fromX = fromModule.x + fromModule.width / 2;
+                        const fromY = fromModule.y + fromModule.height;
+                        const toX = toModule.x + toModule.width / 2;
+                        const toY = toModule.y;
+                        
+                        tempCtx.beginPath();
+                        tempCtx.moveTo(fromX, fromY);
+                        
+                        if (fromY < toY) {
+                            tempCtx.lineTo(fromX, fromY + (toY - fromY) / 2);
+                            tempCtx.lineTo(toX, fromY + (toY - fromY) / 2);
+                            tempCtx.lineTo(toX, toY);
+                        } else {
+                            const midY = (fromY + toY) / 2;
+                            tempCtx.lineTo(fromX, midY);
+                            tempCtx.lineTo(toX, midY);
+                            tempCtx.lineTo(toX, toY);
+                        }
+                        
+                        tempCtx.strokeStyle = '#666';
+                        tempCtx.lineWidth = 1.5;
+                        tempCtx.stroke();
+                        
+                        tempCtx.beginPath();
+                        tempCtx.moveTo(toX - 5, toY + 5);
+                        tempCtx.lineTo(toX, toY);
+                        tempCtx.lineTo(toX + 5, toY + 5);
+                        tempCtx.stroke();
+                    }
+                });
+                
+                // Draw modules
+                modules.forEach(module => {
+                    let fillColor;
+                    switch(module.type) {
+                        case 'user': fillColor = '#e3f2fd'; break;
+                        case 'auth': fillColor = '#fff8e1'; break;
+                        case 'core': fillColor = '#e8f5e9'; break;
+                        case 'data': fillColor = '#f3e5f5'; break;
+                        case 'infra': fillColor = '#fbe9e7'; break;
+                        case 'external': fillColor = '#e0f7fa'; break;
+                        default: fillColor = '#ffffff';
+                    }
+                    
+                    tempCtx.fillStyle = fillColor;
+                    tempCtx.strokeStyle = '#333';
+                    tempCtx.lineWidth = 2;
+                    tempCtx.beginPath();
+                    roundRect(tempCtx, module.x, module.y, module.width, module.height, 5);
+                    tempCtx.fill();
+                    tempCtx.stroke();
+                    
+                    tempCtx.fillStyle = '#333';
+                    tempCtx.font = '12px Arial';
+                    tempCtx.textAlign = 'center';
+                    tempCtx.textBaseline = 'middle';
+                    tempCtx.fillText(module.text, module.x + module.width / 2, module.y + module.height / 2);
+                });
+                
+                tempCtx.restore();
+                
+                // Add title and legend to the exported image
+                tempCtx.fillStyle = '#333';
+                tempCtx.font = 'bold 16px Arial';
+                tempCtx.textAlign = 'center';
+                tempCtx.fillText('Barangay Mamatid Hall HRMS - System Diagram', tempCanvas.width / 2, 20);
+                
+                // Convert to image and trigger download
+                const link = document.createElement('a');
+                link.download = 'HRMS_System_Diagram.png';
+                link.href = tempCanvas.toDataURL('image/png');
+                link.click();
+            });
+            
+            // Make canvas responsive
+            function resizeCanvas() {
+                const container = canvas.parentElement;
+                const newWidth = container.clientWidth;
+                canvas.width = newWidth;
+                draw();
+            }
+            
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+        });
+    </script>
+</body>
+</html>

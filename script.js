@@ -1,74 +1,79 @@
 /*
  * Infobytes Solutions Inc. Website Scripts
- * Enhanced Corporate Design with Advanced Animations
+ * Enhanced Corporate Design with Advanced Animations & New 3D Logo Scroller
  */
 
-// Wait for the document to be fully loaded
 document.addEventListener("DOMContentLoaded", function() {
-  // Force preloader to hide after a maximum time (failsafe)
-  const forceHidePreloader = setTimeout(function() {
-      const preloader = document.getElementById("preloader");
-      if (preloader) {
-          preloader.style.opacity = "0";
-          setTimeout(function() {
-              preloader.style.display = "none";
-          }, 500);
-      }
-  }, 3000);
+  // Preloader
+  const preloader = document.getElementById("preloader");
+  if (preloader) {
+    // Fallback to hide preloader if 'load' event takes too long
+    const forceHidePreloader = setTimeout(function() {
+        if (preloader.style.opacity !== "0") {
+            preloader.style.opacity = "0";
+            setTimeout(() => { preloader.style.visibility = "hidden"; }, 600); // Match transition
+        }
+    }, 3500); // Increased fallback time slightly
 
-  // Normal preloader hide
-  setTimeout(function() {
-      const preloader = document.getElementById("preloader");
-      if (preloader) {
-          preloader.style.opacity = "0";
-          setTimeout(function() {
-              preloader.style.display = "none";
-              clearTimeout(forceHidePreloader); // Clear the failsafe if normal hide works
-          }, 500);
-      }
-  }, 1500);
+    window.addEventListener('load', function() {
+        clearTimeout(forceHidePreloader);
+        preloader.style.opacity = "0";
+        setTimeout(() => { preloader.style.visibility = "hidden"; }, 600); // Match CSS transition
+    });
+  }
 
   // Typing effect for hero title
-  const heroTitle = document.querySelector(".typing-text");
-  if (heroTitle) {
-      const text = "Advanced IT Solutions for Future Challenges";
-      let i = 0;
-      const speed = 100; // typing speed in milliseconds
+  const heroTitleTextElement = document.querySelector(".typing-text");
+  if (heroTitleTextElement) {
+      const textToType = "Advanced IT Solutions for Future Challenges"; // Text to be typed
+      let charIndex = 0;
+      const typingSpeed = 90; // Milliseconds per character
 
       function typeWriter() {
-          if (i < text.length) {
-              heroTitle.textContent += text.charAt(i);
-              i++;
-              setTimeout(typeWriter, speed);
+          if (charIndex < textToType.length) {
+              heroTitleTextElement.textContent += textToType.charAt(charIndex);
+              charIndex++;
+              setTimeout(typeWriter, typingSpeed);
+          } else {
+              // Optional: Blinking cursor stops or changes after typing
+              const cursor = document.querySelector(".hero-title .cursor");
+              if (cursor) {
+                // cursor.style.animation = 'none'; // Stop blinking
+                // cursor.style.opacity = '0';
+              }
           }
       }
-
-      // Start typing after a short delay
-      setTimeout(typeWriter, 1000);
+      setTimeout(typeWriter, 800); // Delay before typing starts
   }
 
   // Navbar Shrink on Scroll
   const mainNav = document.getElementById("mainNav");
   if (mainNav) {
-      window.addEventListener("scroll", function() {
-          if (window.scrollY > 50) {
+      const navHeightThreshold = 50; // Pixels to scroll before shrinking
+      function handleScroll() {
+          if (window.scrollY > navHeightThreshold) {
               mainNav.classList.add("navbar-shrink");
           } else {
               mainNav.classList.remove("navbar-shrink");
           }
-      });
+      }
+      window.addEventListener("scroll", handleScroll);
+      handleScroll(); // Initial check in case page is loaded scrolled
   }
 
   // Back to Top Button
   const backToTopButton = document.querySelector(".back-to-top");
   if (backToTopButton) {
-      window.addEventListener("scroll", function() {
-          if (window.scrollY > 300) {
+      const scrollThreshold = 250; // Pixels to scroll before button appears
+      function toggleBackToTopButton() {
+          if (window.scrollY > scrollThreshold) {
               backToTopButton.classList.add("active");
           } else {
               backToTopButton.classList.remove("active");
           }
-      });
+      }
+      window.addEventListener("scroll", toggleBackToTopButton);
+      toggleBackToTopButton(); // Initial check
 
       backToTopButton.addEventListener("click", function(e) {
           e.preventDefault();
@@ -82,36 +87,39 @@ document.addEventListener("DOMContentLoaded", function() {
   // Smooth Scrolling for Navigation Links
   document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
       anchor.addEventListener("click", function(e) {
-          if (this.getAttribute("href") !== "#") {
-              e.preventDefault();
-              const targetId = this.getAttribute("href");
-              const targetElement = document.querySelector(targetId);
+          const href = this.getAttribute("href");
+          // Ensure it's a valid internal link and not just "#"
+          if (href && href.startsWith("#") && href.length > 1) {
+              const targetElement = document.querySelector(href);
 
               if (targetElement) {
-                  const navHeight = document.querySelector("#mainNav").offsetHeight;
-                  const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                  e.preventDefault(); // Prevent default only if target exists
+                  const nav = document.querySelector("#mainNav");
+                  const navHeight = nav ? nav.offsetHeight : 0;
+                  // Adjust for scroll-padding-top if set in CSS, otherwise use navHeight
+                  const scrollPaddingTop = parseInt(getComputedStyle(document.documentElement).scrollPaddingTop) || navHeight;
+                  
+                  let targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                  
+                  // If target is the #home (hero), scroll exactly to top of hero, considering navbar offset for other sections
+                  if (href === "#home") {
+                     targetPosition = targetElement.offsetTop; // Go to very top of hero
+                  } else {
+                     targetPosition = targetElement.offsetTop - scrollPaddingTop +1; // Add 1px to ensure it triggers active state correctly
+                  }
+
 
                   window.scrollTo({
-                      top: targetPosition - navHeight,
+                      top: targetPosition,
                       behavior: "smooth"
                   });
 
-                  // Close mobile menu if open
-                  const navbarCollapse = document.querySelector(".navbar-collapse");
-                  if (navbarCollapse && navbarCollapse.classList.contains("show")) {
-                      try {
-                          // Try to use Bootstrap's collapse if available
-                          if (typeof bootstrap !== 'undefined') {
-                              const bsCollapse = new bootstrap.Collapse(navbarCollapse);
-                              bsCollapse.hide();
-                          } else {
-                              // Fallback to manual toggle
-                              navbarCollapse.classList.remove("show");
-                          }
-                      } catch (e) {
-                          // Fallback if bootstrap is not available
-                          navbarCollapse.classList.remove("show");
-                      }
+                  // Collapse mobile navbar if open
+                  const navbarToggler = document.querySelector(".navbar-toggler");
+                  const navbarCollapse = document.querySelector(".navbar-collapse.show"); // Check if it's shown
+                  if (navbarCollapse && navbarToggler && getComputedStyle(navbarToggler).display !== 'none') {
+                      const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse) || new bootstrap.Collapse(navbarCollapse);
+                      bsCollapse.hide();
                   }
               }
           }
@@ -120,449 +128,147 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Active Navigation Link on Scroll
   const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
 
-  function navHighlighter() {
+  function highlightNavLink() {
+      let currentSectionId = "";
       const scrollY = window.pageYOffset;
+      const navHeight = mainNav ? mainNav.offsetHeight : 75; // Use a default or calculated nav height
+      const offsetCorrection = 5; // Small correction factor
 
-      sections.forEach(function(current) {
-          const sectionHeight = current.offsetHeight;
-          const sectionTop = current.offsetTop - 100;
-          const sectionId = current.getAttribute("id");
-          const navLink = document.querySelector(`.navbar-nav a[href*=${sectionId}]`);
+      sections.forEach(function(section) {
+          const sectionTop = section.offsetTop - navHeight - offsetCorrection;
+          const sectionBottom = sectionTop + section.offsetHeight;
+          if (scrollY >= sectionTop && scrollY < sectionBottom) {
+              currentSectionId = section.getAttribute("id");
+          }
+      });
+      
+      // If near the top of the page, specifically activate "Home"
+      if (scrollY < sections[0].offsetTop - navHeight - offsetCorrection) {
+        currentSectionId = "home";
+      }
+      // If scrolled to the very bottom, ensure the last section (e.g., contact) is active
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - navHeight) {
+          const lastSection = sections[sections.length-1];
+          if(lastSection) currentSectionId = lastSection.id;
+      }
 
-          if (navLink && scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-              document.querySelectorAll(".navbar-nav a").forEach(function(link) {
-                  link.classList.remove("active");
-              });
-              navLink.classList.add("active");
+
+      navLinks.forEach(function(link) {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${currentSectionId}`) {
+              link.classList.add("active");
           }
       });
   }
+  window.addEventListener("scroll", highlightNavLink);
+  highlightNavLink(); // Initial call
 
-  window.addEventListener("scroll", navHighlighter);
-
-  // Initialize AOS (Animate On Scroll) if available
+  // Initialize AOS (Animate On Scroll)
   try {
       if (typeof AOS !== "undefined") {
           AOS.init({
-              duration: 1000,
-              easing: "ease-in-out",
-              once: false,
-              mirror: true
+              duration: 700,      
+              easing: "ease-in-out-cubic", 
+              once: true,        
+              mirror: false,      
+              offset: 80,        
+              delay: 50,         
           });
       }
   } catch (e) {
-      console.warn("AOS not available:", e);
+      console.warn("AOS initialization error:", e);
   }
 
-  // Initialize Swiper for partners carousel if available
+  // Initialize 3D Partners Logo Scroller
+  const scroller = document.querySelector(".partners-logo-scroller");
+  if (scroller) {
+    const track = scroller.querySelector(".partners-logo-track");
+    if (track) {
+      const items = Array.from(track.children);
+      // Duplicate items for seamless scroll effect.
+      // CSS animation moves the track by -50% of its width.
+      // Duplicating ensures there's always content visible.
+      if (items.length > 0) { // Only clone if there are items
+        items.forEach(item => {
+          const clone = item.cloneNode(true);
+          track.appendChild(clone);
+        });
+      }
+    } else {
+        console.warn("Partner logo track (.partners-logo-track) not found inside .partners-logo-scroller.");
+    }
+  }
+
+  // Counter animation (using jQuery Counter-Up)
   try {
-      if (typeof Swiper !== "undefined") {
-          // First row carousel - continuous smooth movement
-          const partnersCarousel = new Swiper(".partners-carousel", {
-              slidesPerView: 1,
-              spaceBetween: 20,
-              loop: true,
-              freeMode: true,
-              allowTouchMove: false,
-              speed: 8000, // Very slow speed for smooth continuous movement
-              autoplay: {
-                  delay: 0, // No delay between transitions
-                  disableOnInteraction: false
-              },
-              breakpoints: {
-                  576: {
-                      slidesPerView: 2
-                  },
-                  768: {
-                      slidesPerView: 3
-                  },
-                  992: {
-                      slidesPerView: 4
-                  },
-                  1200: {
-                      slidesPerView: 5
-                  }
-              },
-              pagination: {
-                  el: ".swiper-pagination",
-                  clickable: true
-              },
-              on: {
-                  // Ensure continuous looping
-                  beforeDestroy: function() {
-                      this.autoplay.stop();
-                  },
-                  slideChange: function() {
-                      // Ensure smooth transition
-                      this.params.speed = 8000;
-                  }
-              }
+      if (typeof jQuery !== 'undefined' && jQuery.fn.counterUp) {
+          jQuery('.counter').counterUp({
+              delay: 12, // Slower delay for smoother start
+              time: 1600 // Slightly longer animation time
           });
+      } else {
+          console.warn("jQuery or Counter-Up not available. Manual counter fallback can be implemented if needed.");
+          // Basic fallback for counters if jQuery Counter-Up is not available
+          document.querySelectorAll('.counter').forEach(counter => {
+            const target = +(counter.textContent || counter.innerText);
+            counter.textContent = '0'; // Start from 0
+            let current = 0;
+            const increment = target / (1600 / 16); // 1600ms time, 16ms interval (approx 60fps)
 
-          // Second row carousel - continuous smooth movement in reverse direction
-          const partnersCarousel2 = new Swiper(".partners-carousel-2", {
-              slidesPerView: 1,
-              spaceBetween: 20,
-              loop: true,
-              freeMode: true,
-              allowTouchMove: false,
-              speed: 8000, // Very slow speed for smooth continuous movement
-              autoplay: {
-                  delay: 0, // No delay between transitions
-                  disableOnInteraction: false,
-                  reverseDirection: true
-              },
-              breakpoints: {
-                  576: {
-                      slidesPerView: 2
-                  },
-                  768: {
-                      slidesPerView: 3
-                  },
-                  992: {
-                      slidesPerView: 4
-                  },
-                  1200: {
-                      slidesPerView: 5
-                  }
-              },
-              on: {
-                  // Ensure continuous looping
-                  beforeDestroy: function() {
-                      this.autoplay.stop();
-                  },
-                  slideChange: function() {
-                      // Ensure smooth transition
-                      this.params.speed = 8000;
-                  }
+            const updateCounter = () => {
+              current += increment;
+              if (current < target) {
+                counter.textContent = Math.ceil(current);
+                requestAnimationFrame(updateCounter);
+              } else {
+                counter.textContent = target; // Ensure it ends on target
               }
-          });
-
-          // Ensure carousels keep running even when tab is inactive
-          document.addEventListener('visibilitychange', function() {
-              if (document.visibilityState === 'visible') {
-                  partnersCarousel.autoplay.start();
-                  partnersCarousel2.autoplay.start();
-              }
+            };
+            // Start counter when it becomes visible
+            new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        updateCounter();
+                        observer.unobserve(entry.target); // Animate only once
+                    }
+                });
+            }, { threshold: 0.3 }).observe(counter); // Trigger when 30% visible
           });
       }
   } catch (e) {
-      console.warn("Swiper not available or error initializing:", e);
-      
-      // Fallback for carousel if Swiper fails
-      const createSimpleCarousel = function(selector, isReverse) {
-          const container = document.querySelector(selector);
-          if (!container) return;
-          
-          const wrapper = container.querySelector('.swiper-wrapper');
-          if (!wrapper) return;
-          
-          // Clone slides for continuous effect
-          const slides = wrapper.querySelectorAll('.swiper-slide');
-          slides.forEach(function(slide) {
-              const clone = slide.cloneNode(true);
-              wrapper.appendChild(clone);
-          });
-          
-          // Set up animation
-          wrapper.style.display = 'flex';
-          wrapper.style.transition = 'transform 60s linear infinite';
-          wrapper.style.transform = 'translateX(0)';
-          
-          const totalWidth = Array.from(wrapper.children).reduce(function(width, slide) {
-              return width + slide.offsetWidth + 20; // 20px is spaceBetween
-          }, 0);
-          
-          // Start animation
-          setTimeout(function() {
-              wrapper.style.transform = isReverse ? 
-                  `translateX(${totalWidth / 2}px)` : 
-                  `translateX(-${totalWidth / 2}px)`;
-          }, 100);
-          
-          // Reset animation when it completes
-          wrapper.addEventListener('transitionend', function() {
-              wrapper.style.transition = 'none';
-              wrapper.style.transform = 'translateX(0)';
-              setTimeout(function() {
-                  wrapper.style.transition = 'transform 60s linear infinite';
-                  wrapper.style.transform = isReverse ? 
-                      `translateX(${totalWidth / 2}px)` : 
-                      `translateX(-${totalWidth / 2}px)`;
-              }, 50);
-          });
-      };
-      
-      // Initialize fallback carousels
-      createSimpleCarousel('.partners-carousel', false);
-      createSimpleCarousel('.partners-carousel-2', true);
+      console.warn("Counter animation error:", e);
   }
 
-  // Counter animation
-  function animateCounter(counter) {
-      const target = parseInt(counter.textContent);
-      let count = 0;
-      const duration = 2000; // Animation duration in milliseconds
-      const frameDuration = 1000 / 60; // 60fps
-      const totalFrames = Math.round(duration / frameDuration);
-      const increment = target / totalFrames;
-
-      const animate = function() {
-          count += increment;
-          if (count < target) {
-              counter.textContent = Math.ceil(count);
-              requestAnimationFrame(animate);
-          } else {
-              counter.textContent = target;
-          }
-      };
-
-      animate();
-  }
-
-  // Initialize counter animation when element is in viewport
-  const counters = document.querySelectorAll('.counter');
-  
-  // Use Intersection Observer if available
-  if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
-              if (entry.isIntersecting) {
-                  animateCounter(entry.target);
-                  observer.unobserve(entry.target);
-              }
-          });
-      }, { threshold: 0.5 });
-
-      counters.forEach(function(counter) {
-          observer.observe(counter);
-      });
-  } else {
-      // Fallback for browsers that don't support Intersection Observer
-      counters.forEach(function(counter) {
-          animateCounter(counter);
-      });
-  }
-
-  // Service Card Animations
-  const serviceCards = document.querySelectorAll(".service-card");
-  serviceCards.forEach(function(card) {
-      card.addEventListener("mouseenter", function() {
-          const icon = this.querySelector(".service-icon i");
-          if (icon) {
-              icon.style.transform = "rotateY(180deg)";
-              setTimeout(function() {
-                  icon.style.transform = "rotateY(0)";
-              }, 1000);
-          }
-      });
-  });
-
-  // Solution Card Animations
-  const solutionCards = document.querySelectorAll(".solution-card");
-  solutionCards.forEach(function(card) {
-      card.addEventListener("mouseenter", function() {
-          const icon = this.querySelector(".solution-icon i");
-          if (icon) {
-              icon.style.transform = "rotateY(360deg)";
-              icon.style.transition = "transform 0.8s ease";
-          }
-      });
-      
-      card.addEventListener("mouseleave", function() {
-          const icon = this.querySelector(".solution-icon i");
-          if (icon) {
-              icon.style.transform = "rotateY(0)";
-              icon.style.transition = "transform 0.8s ease";
-          }
-      });
-  });
-
-  // Partner Item Animations
-  const partnerItems = document.querySelectorAll(".partner-item");
-  partnerItems.forEach(function(item) {
-      item.addEventListener("mouseenter", function() {
-          const logo = this.querySelector(".partner-logo img");
-          if (logo) {
-              logo.style.transform = "scale(1.1)";
-              logo.style.transition = "transform 0.5s ease";
-          }
-      });
-      
-      item.addEventListener("mouseleave", function() {
-          const logo = this.querySelector(".partner-logo img");
-          if (logo) {
-              logo.style.transform = "scale(1)";
-              logo.style.transition = "transform 0.5s ease";
-          }
-      });
-  });
-
-  // Add animation to contact items
-  const contactItems = document.querySelectorAll(".contact-item");
-  contactItems.forEach(function(item) {
-      item.addEventListener("mouseenter", function() {
-          this.style.transform = "translateX(10px)";
-          this.style.transition = "transform 0.3s ease";
-      });
-      
-      item.addEventListener("mouseleave", function() {
-          this.style.transform = "translateX(0)";
-          this.style.transition = "transform 0.3s ease";
-      });
-  });
-
-  // Add animation to certification features
-  const featureItems = document.querySelectorAll(".feature-item");
-  featureItems.forEach(function(item, index) {
-      item.style.opacity = "0";
-      item.style.transform = "translateX(-20px)";
-      
-      setTimeout(function() {
-          item.style.transition = "all 0.5s ease";
-          item.style.opacity = "1";
-          item.style.transform = "translateX(0)";
-      }, 500 + (index * 200));
-  });
-
-  // Add animation to social links
-  const socialLinks = document.querySelectorAll(".social-link, .social-links a");
-  socialLinks.forEach(function(link) {
-      link.addEventListener("mouseenter", function() {
-          this.style.transform = "translateY(-5px)";
-          this.style.transition = "transform 0.3s ease";
-      });
-      
-      link.addEventListener("mouseleave", function() {
-          this.style.transform = "translateY(0)";
-          this.style.transition = "transform 0.3s ease";
-      });
-  });
-
-  // Add animation to buttons
-  const buttons = document.querySelectorAll(".btn");
-  buttons.forEach(function(button) {
-      button.addEventListener("mouseenter", function() {
-          this.style.transform = "translateY(-3px)";
-          this.style.boxShadow = "0 7px 15px rgba(0, 0, 0, 0.2)";
-          this.style.transition = "all 0.3s ease";
-      });
-      
-      button.addEventListener("mouseleave", function() {
-          this.style.transform = "translateY(0)";
-          this.style.boxShadow = "";
-          this.style.transition = "all 0.3s ease";
-      });
-  });
-
-  // Mobile Detection
-  function isMobile() {
-      return (
-          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-          window.innerWidth < 768
-      );
-  }
-
-  // Fix for iOS vh units
+  // Helper for mobile VH unit consistency (addresses URL bar issue on mobile)
   function setVhProperty() {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
   }
+  setVhProperty(); // Set on initial load
+  window.addEventListener("resize", setVhProperty); // Update on resize
 
-  setVhProperty();
-  window.addEventListener("resize", setVhProperty);
-
-  // Add parallax effect to hero section
-  const hero = document.querySelector(".hero");
-  if (hero && !isMobile()) {
+  // Hero overlay parallax effect (subtle vertical movement)
+  const heroOverlay = document.querySelector(".hero .overlay");
+  if (heroOverlay && window.innerWidth > 768) { // Apply only on non-mobile for performance/simplicity
       window.addEventListener("scroll", function() {
           const scrollPosition = window.pageYOffset;
-          const overlay = hero.querySelector(".overlay");
-          if (overlay) {
-              overlay.style.transform = `translateY(${scrollPosition * 0.3}px)`;
-          }
+          heroOverlay.style.transform = `translateY(${scrollPosition * 0.08}px)`; // Reduced parallax intensity
       });
   }
 
-  // Handle navbar toggler click
-  const navbarToggler = document.querySelector(".navbar-toggler");
-  if (navbarToggler) {
-      navbarToggler.addEventListener("click", function() {
-          const navbarCollapse = document.querySelector(".navbar-collapse");
-          if (navbarCollapse) {
-              if (navbarCollapse.classList.contains("show")) {
-                  navbarCollapse.classList.remove("show");
-              } else {
-                  navbarCollapse.classList.add("show");
-              }
-          }
-      });
+  // Set current year in footer
+  const currentYearElement = document.getElementById("currentYear");
+  if (currentYearElement) {
+      currentYearElement.textContent = new Date().getFullYear();
   }
 
-  // Close navbar when clicking outside
-  document.addEventListener("click", function(event) {
-      const navbarCollapse = document.querySelector(".navbar-collapse.show");
-      if (navbarCollapse) {
-          const navbarToggler = document.querySelector(".navbar-toggler");
-          const isClickInside = navbarCollapse.contains(event.target) || 
-                               (navbarToggler && navbarToggler.contains(event.target));
-          
-          if (!isClickInside) {
-              navbarCollapse.classList.remove("show");
-          }
-      }
-  });
-
-  // Add animation to section dividers
-  const sectionDividers = document.querySelectorAll(".section-divider");
-  sectionDividers.forEach(function(divider) {
-      divider.innerHTML = '<span></span>';
-      const span = divider.querySelector("span");
-      span.style.position = "absolute";
-      span.style.left = "-100%";
-      span.style.width = "100%";
-      span.style.height = "100%";
-      span.style.background = "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent)";
-      
-      setInterval(function() {
-          span.style.left = "-100%";
-          span.style.transition = "none";
-          setTimeout(function() {
-              span.style.transition = "left 2s ease";
-              span.style.left = "100%";
-          }, 50);
-      }, 3000);
-  });
-});
-
-// When the window has fully loaded
-window.addEventListener("load", function() {
-  // Force hide preloader if it's still visible
-  const preloader = document.getElementById("preloader");
-  if (preloader && preloader.style.display !== "none") {
-      preloader.style.opacity = "0";
-      setTimeout(function() {
-          preloader.style.display = "none";
-      }, 500);
-  }
-
-  // Ensure all images are loaded before animations
-  try {
+  // Refresh AOS on window load if it exists, to recalculate positions after all assets are loaded
+  window.addEventListener("load", function() {
       if (typeof AOS !== "undefined") {
           AOS.refresh();
       }
-  } catch (e) {
-      console.warn("Error refreshing AOS:", e);
-  }
+  });
 
-  // Fix Google Maps container height
-  const mapContainer = document.querySelector(".map-container");
-  if (mapContainer) {
-      const iframe = mapContainer.querySelector("iframe");
-      if (iframe) {
-          iframe.style.height = "450px";
-          mapContainer.style.height = "450px";
-      }
-  }
-});
+}); // End DOMContentLoaded
