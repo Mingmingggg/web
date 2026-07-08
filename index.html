@@ -1,487 +1,779 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infobytes Solutions Inc. - Advanced IT Solutions</title>
-    <link rel="icon" href="log.png" type="image/png"> <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Infobytes Solutions Inc.</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Advanced Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        corp: {
+                            950: '#02050f', // Pitch Dark Blue
+                            900: '#061024', // Deepest Blue
+                            800: '#0B1B3D', // Primary Dark Blue
+                            700: '#112855', // Mid Dark Blue
+                            600: '#1A3A75', // Light Accent Blue
+                            50: '#F4F7FF',  // Ethereal White/Blue
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'ambient': '0 0 80px rgba(26, 58, 117, 0.2)',
+                        'ambient-strong': '0 0 120px rgba(255, 255, 255, 0.15)',
+                        '3d-layer': '0 30px 60px -10px rgba(2, 5, 15, 0.4), 0 20px 40px -10px rgba(2, 5, 15, 0.2)',
+                        '3d-layer-hover': '0 50px 100px -20px rgba(2, 5, 15, 0.6), 0 30px 60px -15px rgba(26, 58, 117, 0.4)',
+                        'glow': '0 0 30px rgba(255, 255, 255, 0.25)',
+                        'inner-light': 'inset 0 2px 20px rgba(255, 255, 255, 0.1)',
+                    },
+                    animation: {
+                        'gradient-flow': 'gradient-flow 15s ease infinite',
+                        'orb-float': 'orb-float 20s ease-in-out infinite',
+                        'orb-float-reverse': 'orb-float-reverse 25s ease-in-out infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                        'pulse-glow': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'marquee': 'marquee 40s linear infinite',
+                    },
+                    keyframes: {
+                        'gradient-flow': {
+                            '0%, 100%': { 'background-size': '200% 200%', 'background-position': '0% 50%' },
+                            '50%': { 'background-size': '200% 200%', 'background-position': '100% 50%' },
+                        },
+                        'orb-float': {
+                            '0%, 100%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(40px, -60px) scale(1.2)' },
+                            '66%': { transform: 'translate(-30px, 30px) scale(0.8)' },
+                        },
+                        'orb-float-reverse': {
+                            '0%, 100%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(-40px, 60px) scale(0.8)' },
+                            '66%': { transform: 'translate(30px, -30px) scale(1.2)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: 0.5, transform: 'scale(1)' },
+                            '50%': { opacity: 1, transform: 'scale(1.1)' },
+                        },
+                        'marquee': {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(calc(-50% - 1rem))' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;800;900&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #02050f; 
+        }
+        
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+
+        /* Cinema Noise Overlay for Texture (No lines, just ambient texture) */
+        .bg-noise {
+            position: relative;
+        }
+        .bg-noise::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Glassmorphism Classes */
+        .glass-nav {
+            background: rgba(2, 5, 15, 0.6);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03), 0 30px 60px rgba(0,0,0,0.4);
+        }
+
+        /* Abstract Fluid Blob */
+        .organic-shape {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation: fluid 12s ease-in-out infinite alternate;
+        }
+        @keyframes fluid {
+            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+
+        /* Infinite Marquee Fading Mask */
+        .scroller {
+            -webkit-mask: linear-gradient(90deg, transparent, white 15%, white 85%, transparent);
+            mask: linear-gradient(90deg, transparent, white 15%, white 85%, transparent);
+        }
+        .scroller-inner:hover {
+            animation-play-state: paused;
+        }
+
+        /* Text Gradients */
+        .text-fluid-gradient {
+            background: linear-gradient(to right, #ffffff, #a3bffa, #ffffff);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: gradient-flow 5s linear infinite;
+        }
+
+        /* Enforce absolute no-lines policy */
+        * { outline: none !important; border: none !important; }
+
+        /* Loader specific z-index to stay above everything */
+        #loader { z-index: 99999; }
+    </style>
 </head>
-<body>
-    <div id="preloader">
-        <div class="loader-container">
-            <div class="spinner-border text-light" role="status">
-                <span class="visually-hidden">Loading...</span>
+<body class="text-corp-900 antialiased overflow-x-hidden selection:bg-corp-600 selection:text-white bg-noise">
+
+    <!-- Cinematic 2-Second Loading Screen -->
+    <div id="loader" class="fixed inset-0 bg-corp-950 flex flex-col items-center justify-center transition-opacity duration-1000 ease-in-out">
+        <div class="relative flex items-center justify-center mb-8">
+            <!-- Pulsing Ambient Glow -->
+            <div class="absolute w-48 h-48 bg-blue-600 rounded-full blur-[70px] animate-pulse-glow"></div>
+            <!-- Spinning Globe -->
+            <i class="fas fa-globe-americas text-7xl text-white animate-spin-slow drop-shadow-[0_0_30px_rgba(255,255,255,0.8)] relative z-10"></i>
+        </div>
+        <div class="relative z-10 flex flex-col items-center">
+            <span class="text-white text-[11px] font-black tracking-[0.6em] uppercase animate-pulse">Initializing</span>
+            <div class="mt-4 flex gap-2">
+                <div class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0s;"></div>
+                <div class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+                <div class="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0.4s;"></div>
             </div>
-            <div class="loader-text">Infobytes Solutions Inc.</div>
         </div>
     </div>
 
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="#home"> <img src="logo.png" alt="Infobytes Solutions Inc. Logo" class="logo-img"> </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#solutions">Solutions</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#partners">Partners</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#certifications">Certifications</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                </ul>
+    <!-- Ambient Background Orbs -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute -top-[10%] -left-[10%] w-[60vw] h-[60vw] rounded-full bg-corp-800/30 blur-[150px] animate-orb-float mix-blend-screen"></div>
+        <div class="absolute top-[30%] -right-[10%] w-[50vw] h-[50vw] rounded-full bg-corp-700/20 blur-[130px] animate-orb-float-reverse mix-blend-screen"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-700 glass-nav transform -translate-y-full" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                
+                <!-- Logo -->
+                <div class="flex-shrink-0 cursor-pointer drop-shadow-2xl transform hover:scale-105 transition-transform duration-500 relative z-20" onclick="window.scrollTo(0,0)">
+                    <img src="logo.png" alt="Logo" class="h-14 w-auto object-contain" onerror="this.outerHTML='<div class=\'w-14 h-14 bg-gradient-to-tr from-corp-600 to-white rounded-[1.2rem] flex items-center justify-center shadow-glow\'><i class=\'fas fa-microchip text-2xl text-corp-950\'></i></div>'">
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex space-x-10 items-center relative z-20">
+                    <a href="#about" class="text-white/70 hover:text-white transition-colors duration-300 font-bold text-[10px] uppercase tracking-[0.3em] relative group">
+                        About <span class="absolute -bottom-3 left-1/2 w-0 h-1 bg-blue-400 rounded-full transition-all duration-300 group-hover:w-full group-hover:-translate-x-1/2 shadow-glow opacity-0 group-hover:opacity-100"></span>
+                    </a>
+                    <a href="#services" class="text-white/70 hover:text-white transition-colors duration-300 font-bold text-[10px] uppercase tracking-[0.3em] relative group">
+                        Services <span class="absolute -bottom-3 left-1/2 w-0 h-1 bg-blue-400 rounded-full transition-all duration-300 group-hover:w-full group-hover:-translate-x-1/2 shadow-glow opacity-0 group-hover:opacity-100"></span>
+                    </a>
+                    <a href="#solutions" class="text-white/70 hover:text-white transition-colors duration-300 font-bold text-[10px] uppercase tracking-[0.3em] relative group">
+                        Solutions <span class="absolute -bottom-3 left-1/2 w-0 h-1 bg-blue-400 rounded-full transition-all duration-300 group-hover:w-full group-hover:-translate-x-1/2 shadow-glow opacity-0 group-hover:opacity-100"></span>
+                    </a>
+                    <a href="#partners" class="text-white/70 hover:text-white transition-colors duration-300 font-bold text-[10px] uppercase tracking-[0.3em] relative group">
+                        Partners <span class="absolute -bottom-3 left-1/2 w-0 h-1 bg-blue-400 rounded-full transition-all duration-300 group-hover:w-full group-hover:-translate-x-1/2 shadow-glow opacity-0 group-hover:opacity-100"></span>
+                    </a>
+                    <a href="#certifications" class="text-white/70 hover:text-white transition-colors duration-300 font-bold text-[10px] uppercase tracking-[0.3em] relative group">
+                        Certs <span class="absolute -bottom-3 left-1/2 w-0 h-1 bg-blue-400 rounded-full transition-all duration-300 group-hover:w-full group-hover:-translate-x-1/2 shadow-glow opacity-0 group-hover:opacity-100"></span>
+                    </a>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="hidden lg:block relative z-20">
+                    <a href="#contact" class="bg-white text-corp-950 px-10 py-4 rounded-full font-black text-[10px] uppercase tracking-[0.3em] shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_50px_rgba(255,255,255,0.6)] transform hover:-translate-y-1 transition-all duration-500 inline-flex items-center gap-3 group">
+                        Connect <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Toggle -->
+                <div class="lg:hidden flex items-center relative z-20">
+                    <button id="mobile-menu-btn" class="w-14 h-14 bg-white/5 rounded-full text-white flex items-center justify-center hover:bg-white hover:text-corp-900 transition-all duration-300 backdrop-blur-md shadow-lg">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
             </div>
+        </div>
+
+        <!-- Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden absolute w-[96%] left-[2%] top-28 glass-panel rounded-[2.5rem] p-8 flex flex-col gap-4 backdrop-blur-3xl z-10">
+            <a href="#about" class="text-center text-white bg-white/5 hover:bg-white hover:text-corp-900 py-5 rounded-3xl font-black text-xs uppercase tracking-[0.3em] transition-all">About</a>
+            <a href="#services" class="text-center text-white bg-white/5 hover:bg-white hover:text-corp-900 py-5 rounded-3xl font-black text-xs uppercase tracking-[0.3em] transition-all">Services</a>
+            <a href="#solutions" class="text-center text-white bg-white/5 hover:bg-white hover:text-corp-900 py-5 rounded-3xl font-black text-xs uppercase tracking-[0.3em] transition-all">Solutions</a>
+            <a href="#partners" class="text-center text-white bg-white/5 hover:bg-white hover:text-corp-900 py-5 rounded-3xl font-black text-xs uppercase tracking-[0.3em] transition-all">Partners</a>
+            <a href="#certifications" class="text-center text-white bg-white/5 hover:bg-white hover:text-corp-900 py-5 rounded-3xl font-black text-xs uppercase tracking-[0.3em] transition-all">Certifications</a>
+            <a href="#contact" class="text-center text-corp-950 bg-white py-5 rounded-3xl font-black text-xs uppercase tracking-[0.3em] shadow-glow mt-4">Contact Us</a>
         </div>
     </nav>
 
-    <header id="home" class="hero">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-7" data-aos="fade-right" data-aos-delay="200">
-                    <h1 class="hero-title"><span class="typing-text"></span><span class="cursor">|</span></h1>
-                    <p class="hero-subtitle">Providing innovative information technology products and services since 2018</p>
-                    <div class="hero-btns">
-                        <a href="#services" class="btn btn-primary btn-lg">Our Services</a>
-                        <a href="#contact" class="btn btn-outline-light btn-lg ms-md-3 mt-3 mt-md-0">Contact Us</a>
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-48 pb-32 lg:pt-64 lg:pb-52 overflow-hidden min-h-screen flex items-center z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative w-full">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-20">
+                
+                <!-- Text Area -->
+                <div class="lg:w-1/2 text-center lg:text-left relative z-20" data-aos="fade-right" data-aos-duration="1500">
+                    
+                    <h1 class="text-5xl md:text-7xl lg:text-[6rem] font-black text-white leading-[1.05] mb-8 tracking-tighter drop-shadow-2xl">
+                        Architecting <br>
+                        <span class="text-fluid-gradient">The Future.</span>
+                    </h1>
+                    
+                    <p class="text-lg md:text-xl text-blue-100/70 mb-12 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light tracking-wide">
+                        Providing advanced, innovative information technology frameworks since 2018. We build the indestructible digital infrastructure for modern enterprises.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6">
+                        <a href="#services" class="w-full sm:w-auto px-12 py-5 bg-white text-corp-950 rounded-full font-black text-[11px] uppercase tracking-[0.3em] hover:scale-[1.03] hover:-translate-y-1 transition-all duration-500 shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.6)]">
+                            Explore Services
+                        </a>
                     </div>
                 </div>
-                <div class="col-lg-5" data-aos="fade-left" data-aos-delay="400">
-                    <div class="hero-image-container">
-                        </div>
-                </div>
-            </div>
-        </div>
-        <div class="wave-container">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                <path fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-            </svg>
-        </div>
-    </header>
 
-    <section id="about" class="section">
-        <div class="container">
-            <div class="section-header text-center" data-aos="fade-up">
-                <h2>About Infobytes Solutions Inc.</h2>
-                <div class="section-divider"></div>
-                <p>Your trusted partner in information technology since 2018</p>
+                <!-- Abstract 3D Hero Graphic -->
+                <div class="lg:w-1/2 flex justify-center relative h-[500px]" data-aos="fade-left" data-aos-duration="2000" data-aos-delay="200">
+                    <div class="absolute inset-0 m-auto w-[22rem] h-[22rem] bg-gradient-to-tr from-corp-800 to-corp-600 organic-shape shadow-[0_0_120px_rgba(26,58,117,0.6)] flex items-center justify-center overflow-hidden backdrop-blur-3xl">
+                        <!-- Inner texture -->
+                        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-60"></div>
+                        <!-- Central Icon -->
+                        <i class="fas fa-layer-group text-9xl text-white drop-shadow-[0_0_40px_rgba(255,255,255,0.6)] transform hover:scale-110 transition-transform duration-700"></i>
+                    </div>
+                    
+                  
+                </div>
             </div>
-            <div class="row align-items-center">
-                <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
-                    <div class="about-img">
-                        <img src="iff.png" alt="Infobytes Team or Office Environment" class="img-fluid rounded-lg shadow-lg"> <div class="experience-badge">
-                            <span>7</span> <p>Years of Excellence</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-40 bg-corp-50 relative z-20 rounded-t-[4rem] shadow-[0_-40px_100px_rgba(0,0,0,0.8)] overflow-hidden">
+        <!-- Minimal subtle background graphic -->
+        <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-white rounded-full blur-[100px] opacity-60 transform translate-x-1/3 -translate-y-1/3"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-24">
+                
+                <!-- Heavy Typography Image Block -->
+                <div class="lg:w-1/2 relative" data-aos="zoom-out-right" data-aos-duration="1200">
+                    <div class="w-full aspect-[4/5] bg-white rounded-[4rem] shadow-3d-layer p-14 flex flex-col justify-end relative overflow-hidden group hover:-translate-y-4 transition-transform duration-700">
+                        <!-- Abstract overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-corp-100 to-transparent opacity-50"></div>
+                        <i class="fas fa-code-branch text-[20rem] text-corp-900/5 absolute -right-10 top-10 group-hover:scale-110 transition-transform duration-[3s]"></i>
+                        
+                        <div class="relative z-10">
+                            <h3 class="text-8xl lg:text-[9rem] font-black text-corp-900 tracking-tighter drop-shadow-xl leading-none">2018</h3>
+                            <p class="font-black text-xs tracking-[0.5em] uppercase text-corp-600 mt-6">Foundation Year</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="400">
-                    <div class="about-content">
-                        <h3>Who We Are</h3>
-                        <p class="lead">Infobytes Solutions Inc. (ISI) is a leading system integrator with extensive industry experience, specializing in solutions for State Universities.</p>
-                        <p>We focus on providing advanced and innovative information technology products and services to meet the evolving needs of educational institutions, corporate enterprises, and government agencies. Our commitment to excellence and innovation has established us as a trusted partner in the IT industry.</p>
-                        
-                        <div class="stats-container">
-                            <div class="row">
-                                <div class="col-6 col-md-3 mb-3 mb-md-0" data-aos="fade-up" data-aos-delay="450">
-                                    <div class="stat-item">
-                                        <h4 class="counter">7</h4>
-                                        <p>Years Experience</p>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mb-3 mb-md-0" data-aos="fade-up" data-aos-delay="500">
-                                    <div class="stat-item">
-                                        <h4 class="counter">7</h4> <p>Projects Completed</p>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mb-3 mb-md-0" data-aos="fade-up" data-aos-delay="550">
-                                    <div class="stat-item">
-                                        <h4 class="counter">18</h4> <p>Team Members</p>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mb-3 mb-md-0" data-aos="fade-up" data-aos-delay="600">
-                                    <div class="stat-item">
-                                        <h4 class="counter">15</h4> <p>Partner Universities</p>
-                                    </div>
-                                </div>
+
+                <!-- Content -->
+                <div class="lg:w-1/2" data-aos="fade-left" data-aos-duration="1200">
+                    <div class="inline-block bg-white text-corp-900 px-8 py-3 rounded-full mb-10 font-black text-[10px] uppercase tracking-[0.4em] shadow-lg">
+                        Corporate Identity
+                    </div>
+                    <h2 class="text-5xl md:text-6xl font-black text-corp-900 mb-10 leading-[1.1] tracking-tight">
+                        Your Trusted Partner in IT Evolution.
+                    </h2>
+                    <p class="text-xl text-corp-700/80 mb-8 leading-relaxed font-light">
+                        Infobytes Solutions Inc. is a leading system integrator with extensive industry experience, specializing heavily in bespoke solutions for State Universities and massive organizations.
+                    </p>
+                    <p class="text-lg text-corp-700/60 leading-relaxed font-light">
+                        Our profound commitment to advanced information technology products ensures that we consistently meet the complex, evolving needs of educational institutions, corporate enterprises, and government agencies. Excellence is our only metric.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services (Glass Dark Mode) -->
+    <section id="services" class="py-40 bg-corp-950 text-white relative z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative">
+            <div class="text-center mb-28" data-aos="fade-up">
+                <div class="inline-block glass-panel px-8 py-3 rounded-full mb-10 font-black text-[10px] uppercase tracking-[0.4em] text-blue-200">
+                    Service Arsenal
+                </div>
+                <h2 class="text-5xl md:text-7xl font-black mb-8 tracking-tight drop-shadow-2xl">Comprehensive Solutions.</h2>
+                <p class="text-blue-200/60 text-xl font-light max-w-2xl mx-auto">Engineered perfectly for your organization's highest demands.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- S1 -->
+                <div class="glass-panel rounded-[3rem] p-12 hover:scale-[1.02] hover:-translate-y-4 transition-all duration-500 group shadow-3d-layer hover:shadow-3d-layer-hover relative overflow-hidden" data-aos="fade-up" data-aos-delay="0">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div class="w-20 h-20 bg-white/10 rounded-[2rem] flex items-center justify-center mb-10 shadow-inner-light group-hover:scale-110 group-hover:bg-white group-hover:text-corp-900 transition-all duration-500 backdrop-blur-md text-white">
+                        <i class="fas fa-network-wired text-4xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-black mb-6 tracking-tight relative z-10">System Integration</h3>
+                    <p class="text-blue-100/60 font-light leading-relaxed relative z-10">Seamless integration of diverse hardware and software components to create cohesive, exceptionally functional systems.</p>
+                </div>
+                
+                <!-- S2 -->
+                <div class="glass-panel rounded-[3rem] p-12 hover:scale-[1.02] hover:-translate-y-4 transition-all duration-500 group shadow-3d-layer hover:shadow-3d-layer-hover relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div class="w-20 h-20 bg-white/10 rounded-[2rem] flex items-center justify-center mb-10 shadow-inner-light group-hover:scale-110 group-hover:bg-white group-hover:text-corp-900 transition-all duration-500 backdrop-blur-md text-white">
+                        <i class="fas fa-database text-4xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-black mb-6 tracking-tight relative z-10">Data Storage</h3>
+                    <p class="text-blue-100/60 font-light leading-relaxed relative z-10">Secure, massively scalable, and reliable data storage systems strictly designed to protect your valuable information assets.</p>
+                </div>
+
+                <!-- S3 -->
+                <div class="glass-panel rounded-[3rem] p-12 hover:scale-[1.02] hover:-translate-y-4 transition-all duration-500 group shadow-3d-layer hover:shadow-3d-layer-hover relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div class="w-20 h-20 bg-white/10 rounded-[2rem] flex items-center justify-center mb-10 shadow-inner-light group-hover:scale-110 group-hover:bg-white group-hover:text-corp-900 transition-all duration-500 backdrop-blur-md text-white">
+                        <i class="fas fa-shield-alt text-4xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-black mb-6 tracking-tight relative z-10">Security Measures</h3>
+                    <p class="text-blue-100/60 font-light leading-relaxed relative z-10">Comprehensive, military-grade cybersecurity strategies and solutions for absolute protection against evolving threats.</p>
+                </div>
+
+                <!-- S4 -->
+                <div class="glass-panel rounded-[3rem] p-12 hover:scale-[1.02] hover:-translate-y-4 transition-all duration-500 group shadow-3d-layer hover:shadow-3d-layer-hover relative overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div class="w-20 h-20 bg-white/10 rounded-[2rem] flex items-center justify-center mb-10 shadow-inner-light group-hover:scale-110 group-hover:bg-white group-hover:text-corp-900 transition-all duration-500 backdrop-blur-md text-white">
+                        <i class="fas fa-key text-4xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-black mb-6 tracking-tight relative z-10">Software Licensing</h3>
+                    <p class="text-blue-100/60 font-light leading-relaxed relative z-10">Expert, meticulous guidance for software licensing compliance and hyper cost-optimization for your organization.</p>
+                </div>
+
+                <!-- S5 -->
+                <div class="glass-panel rounded-[3rem] p-12 hover:scale-[1.02] hover:-translate-y-4 transition-all duration-500 group shadow-3d-layer hover:shadow-3d-layer-hover relative overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div class="w-20 h-20 bg-white/10 rounded-[2rem] flex items-center justify-center mb-10 shadow-inner-light group-hover:scale-110 group-hover:bg-white group-hover:text-corp-900 transition-all duration-500 backdrop-blur-md text-white">
+                        <i class="fas fa-wifi text-4xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-black mb-6 tracking-tight relative z-10">Networking Solutions</h3>
+                    <p class="text-blue-100/60 font-light leading-relaxed relative z-10">Robust, high-speed networking infrastructure design, implementation, and management for optimal global connectivity.</p>
+                </div>
+
+                <!-- S6 -->
+                <div class="glass-panel rounded-[3rem] p-12 hover:scale-[1.02] hover:-translate-y-4 transition-all duration-500 group shadow-3d-layer hover:shadow-3d-layer-hover relative overflow-hidden" data-aos="fade-up" data-aos-delay="500">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div class="w-20 h-20 bg-white/10 rounded-[2rem] flex items-center justify-center mb-10 shadow-inner-light group-hover:scale-110 group-hover:bg-white group-hover:text-corp-900 transition-all duration-500 backdrop-blur-md text-white">
+                        <i class="fas fa-brain text-4xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-black mb-6 tracking-tight relative z-10">IT Consultation</h3>
+                    <p class="text-blue-100/60 font-light leading-relaxed relative z-10">Strategic IT consultation and visionary technology decision support completely aligned with your highest business objectives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions By Sector (Asymmetrical Layout) -->
+    <section id="solutions" class="py-40 bg-white relative z-20 rounded-t-[4rem] shadow-[0_-40px_100px_rgba(0,0,0,0.8)] overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-28" data-aos="fade-up">
+                <div class="inline-block bg-corp-50 text-corp-900 px-8 py-3 rounded-full mb-10 font-black text-[10px] uppercase tracking-[0.4em] shadow-sm">
+                    Sector Mastery
+                </div>
+                <h2 class="text-5xl md:text-7xl font-black text-corp-900 mb-8 tracking-tight">Tailored Dominance.</h2>
+                <p class="text-corp-700/60 text-xl font-light">Bespoke IT solutions crafted for diverse industry demands.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 relative">
+                
+                <!-- Education -->
+                <div class="bg-white rounded-[3rem] p-12 shadow-3d-layer hover:shadow-3d-layer-hover transition-all duration-500 group z-10 relative lg:-translate-y-12 hover:scale-[1.02]" data-aos="fade-up" data-aos-delay="0">
+                    <div class="w-24 h-24 bg-corp-50 rounded-[2rem] flex items-center justify-center mb-10 shadow-inner group-hover:bg-corp-900 group-hover:text-white transition-colors duration-500 text-corp-900">
+                        <i class="fas fa-graduation-cap text-5xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-black text-corp-900 mb-8 tracking-tight">Educational<br>Institutions</h3>
+                    <div class="space-y-4 text-corp-700/80 font-light">
+                        <p class="flex items-center gap-4"><i class="fas fa-circle text-[6px] text-corp-600"></i> Campus-wide networks</p>
+                        <p class="flex items-center gap-4"><i class="fas fa-circle text-[6px] text-corp-600"></i> Student Info Systems (SIS)</p>
+                        <p class="flex items-center gap-4"><i class="fas fa-circle text-[6px] text-corp-600"></i> Digital e-learning platforms</p>
+                        <p class="flex items-center gap-4"><i class="fas fa-circle text-[6px] text-corp-600"></i> Library management systems</p>
+                        <p class="flex items-center gap-4"><i class="fas fa-circle text-[6px] text-corp-600"></i> Admin workflow automation</p>
+                    </div>
+                </div>
+
+                <!-- Corporate -->
+                <div class="bg-corp-900 rounded-[3rem] p-12 shadow-[0_40px_80px_rgba(6,16,36,0.6)] hover:shadow-[0_60px_100px_rgba(6,16,36,0.8)] transition-all duration-500 group z-20 relative lg:scale-110 lg:-translate-y-4 hover:scale-[1.12]" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-24 h-24 bg-white/10 rounded-[2rem] flex items-center justify-center mb-10 shadow-inner-light group-hover:bg-white group-hover:text-corp-900 transition-colors duration-500 text-white backdrop-blur-sm">
+                        <i class="fas fa-building text-5xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-black text-white mb-8 tracking-tight drop-shadow-lg">Corporate<br>Enterprises</h3>
+                    <div class="space-y-4 text-blue-100/80 font-light">
+                        <p class="flex items-center gap-4"><i class="fas fa-circle text-[6px] text-blue-400"></i> Enterprise Resource Planning</p>
+                        <p class="flex items-center gap-4"><i class="fas fa-circle text-[6px] text-blue-400"></i> CRM Integration</p>
+                        <p class="flex items-center gap-4"><i class="fas fa-circle text-[6px] text-blue-400"></i> Business Intelligence</p>
+                        <p class="flex items-center gap-4"><i class="fas fa-circle text-[6px] text-blue-400"></i> Cloud Migration</p>
+                        <p class="flex items-center gap-4"><i class="fas fa-circle text-[6px] text-blue-400"></i> Cyber Data Compliance</p>
+                    </div>
+                </div>
+
+                <!-- Government -->
+                <div class="bg-white rounded-[3rem] p-12 shadow-3d-layer hover:shadow-3d-layer-hover transition-all duration-500 group z-10 relative lg:translate-y-12 hover:scale-[1.02]" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-24 h-24 bg-corp-50 rounded-[2rem] flex items-center justify-center mb-10 shadow-inner group-hover:bg-corp-900 group-hover:text-white transition-colors duration-500 text-corp-900">
+                        <i class="fas fa-landmark text-5xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-black text-corp-900 mb-8 tracking-tight">Government<br>Agencies</h3>
+                    <div class="space-y-4 text-corp-700/80 font-light">
+                        <p class="flex items-center gap-4"><i class="fas fa-circle text-[6px] text-corp-600"></i> Secure Data Management</p>
+                        <p class="flex items-center gap-4"><i class="fas fa-circle text-[6px] text-corp-600"></i> Citizen E-governance</p>
+                        <p class="flex items-center gap-4"><i class="fas fa-circle text-[6px] text-corp-600"></i> Workflow Documenting</p>
+                        <p class="flex items-center gap-4"><i class="fas fa-circle text-[6px] text-corp-600"></i> Security Frameworks</p>
+                        <p class="flex items-center gap-4"><i class="fas fa-circle text-[6px] text-corp-600"></i> Disaster Recovery</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Infinite Partners Marquee -->
+    <section id="partners" class="py-32 bg-corp-50 relative z-10 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative mb-16">
+            <div class="text-center" data-aos="fade-up">
+                <h2 class="text-[11px] font-black uppercase tracking-[0.5em] text-corp-500 mb-6 drop-shadow-sm">The Syndicate</h2>
+                <p class="text-4xl md:text-5xl font-black text-corp-900 tracking-tight">Collaborating with Key Partners.</p>
+            </div>
+        </div>
+        
+        <!-- Infinite Scrolling Container -->
+        <div class="scroller w-full py-10" data-aos="fade-in" data-aos-delay="200">
+            <div class="scroller-inner flex gap-8 w-max animate-marquee">
+                <!-- Group 1 -->
+                <div class="flex gap-8 items-center">
+                    <!-- Partner Items -->
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="dell.png" alt="DELL" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>DELL</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="HUAWEI.png" alt="HUAWEI" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>HUAWEI</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="vst.png" alt="VST ECS" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em] text-center\'>VST ECS</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="mb.png" alt="MBPS" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>MBPS</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="REMAX.png" alt="REMAX" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>REMAX</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="nt.png" alt="NTEK" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>NTEK</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="lea.png" alt="LEADTECH" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em] text-center\'>LEADTECH</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="YUGA.png" alt="YUGABYTE" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-[11px] tracking-[0.2em] text-center\'>YUGABYTE</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="MS.png" alt="MICROSOFT" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-[11px] tracking-[0.2em] text-center\'>MICROSOFT</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="CCCI.png" alt="CCCI" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>CCCI</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="for.png" alt="FORTINET" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-[11px] tracking-[0.2em] text-center\'>FORTINET</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="VERTIV.png" alt="VERTIV" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>VERTIV</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="MEDIABLAST.png" alt="MEDIABLAST" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-[10px] tracking-[0.1em] text-center\'>MEDIABLAST</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="GEMENI.png" alt="GEMINI" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>GEMINI</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="BZN.png" alt="BZN" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>BZN</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="ARUBA.png" alt="ARUBA" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>ARUBA</h5>'">
+                    </div>
+                </div>
+                
+                <!-- Group 2 (Duplicate for infinite seamless scroll) -->
+                <div class="flex gap-8 items-center" aria-hidden="true">
+                    <!-- Duplicated Items -->
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="dell.png" alt="DELL" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>DELL</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="HUAWEI.png" alt="HUAWEI" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>HUAWEI</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="vst.png" alt="VST ECS" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em] text-center\'>VST ECS</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="mb.png" alt="MBPS" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>MBPS</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="REMAX.png" alt="REMAX" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>REMAX</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="nt.png" alt="NTEK" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>NTEK</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="lea.png" alt="LEADTECH" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em] text-center\'>LEADTECH</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="YUGA.png" alt="YUGABYTE" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-[11px] tracking-[0.2em] text-center\'>YUGABYTE</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="MS.png" alt="MICROSOFT" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-[11px] tracking-[0.2em] text-center\'>MICROSOFT</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="CCCI.png" alt="CCCI" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>CCCI</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="for.png" alt="FORTINET" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-[11px] tracking-[0.2em] text-center\'>FORTINET</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="VERTIV.png" alt="VERTIV" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>VERTIV</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="MEDIABLAST.png" alt="MEDIABLAST" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-[10px] tracking-[0.1em] text-center\'>MEDIABLAST</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="GEMENI.png" alt="GEMINI" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>GEMINI</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="BZN.png" alt="BZN" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>BZN</h5>'">
+                    </div>
+                    <div class="w-48 h-48 bg-white rounded-[2rem] flex items-center justify-center p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 cursor-pointer">
+                        <img src="ARUBA.png" alt="ARUBA" class="max-w-full max-h-full object-contain grayscale hover:grayscale-0 transition-all duration-300" onerror="this.outerHTML='<h5 class=\'font-black text-corp-900 text-sm tracking-[0.2em]\'>ARUBA</h5>'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications (Deep 3D Elements) -->
+    <section id="certifications" class="py-40 bg-corp-900 text-white relative z-20 rounded-t-[4rem] overflow-hidden">
+        <div class="absolute inset-0 bg-noise opacity-50 mix-blend-overlay"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row justify-between items-end mb-28 gap-10">
+                <div data-aos="fade-right">
+                    <h2 class="text-6xl md:text-8xl font-black tracking-tighter mb-6 text-white drop-shadow-2xl">Compliance. <br><span class="text-blue-500">Perfected.</span></h2>
+                </div>
+                <div data-aos="fade-left" class="lg:text-right text-blue-200/70 max-w-md font-light text-xl leading-relaxed">
+                    <p>Meeting absolute regulatory standards and demonstrating unmatched ethical integrity on a global scale.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                
+                <!-- RA 12009 (Large block) -->
+                <div class="lg:col-span-7 bg-white/5 rounded-[3rem] p-12 lg:p-16 backdrop-blur-3xl shadow-ambient group hover:bg-white/10 transition-colors duration-700 relative overflow-hidden" data-aos="fade-up">
+                    <div class="absolute -right-10 -bottom-10 opacity-10 group-hover:scale-110 group-hover:-rotate-12 transition-transform duration-[2s]">
+                        <i class="fas fa-file-signature text-[20rem]"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="bg-blue-600 text-white text-[10px] font-black uppercase tracking-[0.3em] px-6 py-2 rounded-full shadow-lg">Government Verified</span>
+                        <h3 class="text-5xl lg:text-6xl font-black mt-10 mb-8 tracking-tight">RA 12009</h3>
+                        <p class="text-blue-100/80 text-xl font-light leading-relaxed max-w-xl">Fully compliant with the New Government Procurement Act. Assuring massive procurements with the highest thresholds of transparency, accountability, and pristine efficiency.</p>
+                    </div>
+                </div>
+
+                <!-- CPSI (Tall block) -->
+                <div class="lg:col-span-5 bg-gradient-to-br from-blue-700 to-blue-900 rounded-[3rem] p-12 lg:p-16 shadow-ambient group hover:shadow-ambient-strong transition-all duration-700 relative overflow-hidden flex flex-col justify-end transform hover:scale-[1.02]" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute -right-5 -top-5 opacity-20 group-hover:rotate-45 transition-transform duration-[3s]">
+                        <i class="fas fa-award text-[16rem]"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <h3 class="text-5xl font-black mb-6 tracking-tight drop-shadow-xl">CPSI Certified</h3>
+                        <p class="text-white/90 font-light text-xl leading-relaxed">Certified Professional System Integrator. Recognized strictly for elite deployment methodologies and impeccable system architecture.</p>
+                    </div>
+                </div>
+
+                <!-- ISO 9001 (Full width horizontal card) -->
+                <a href="certification.pdf" target="_blank" class="lg:col-span-12 bg-white rounded-[3rem] p-12 lg:p-16 shadow-3d-layer hover:shadow-3d-layer-hover group flex flex-col lg:flex-row items-center justify-between gap-12 relative overflow-hidden cursor-pointer transform hover:scale-[1.01] transition-all duration-500" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute inset-0 bg-gradient-to-r from-white to-corp-50 opacity-100"></div>
+                    
+                    <div class="relative z-10 flex flex-col sm:flex-row items-center gap-10 lg:w-3/4">
+                        <div class="w-28 h-28 bg-corp-950 rounded-full flex items-center justify-center shrink-0 shadow-2xl group-hover:scale-110 transition-transform duration-700">
+                            <i class="fas fa-certificate text-5xl text-white"></i>
+                        </div>
+                        <div class="text-center sm:text-left">
+                            <h3 class="text-4xl lg:text-5xl font-black text-corp-900 mb-4 tracking-tight">ISO 9001:2015 QMS</h3>
+                            <p class="text-corp-700/80 font-light text-xl leading-relaxed">Quality Management System provisioning pure excellence in IT Systems Integration, Data Centers, and Elite Managed Services.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative z-10 shrink-0 mt-8 lg:mt-0">
+                        <div class="w-20 h-20 rounded-[2rem] bg-corp-100 flex items-center justify-center text-corp-900 group-hover:bg-corp-900 group-hover:text-white transition-colors duration-500 shadow-inner">
+                            <i class="fas fa-arrow-right text-3xl -rotate-45 group-hover:rotate-0 transition-transform duration-500"></i>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Footer -->
+    <footer id="contact" class="bg-corp-950 text-white pt-48 pb-16 relative overflow-hidden rounded-t-[5rem] z-30 shadow-[0_-50px_120px_rgba(2,5,15,1)]">
+        <!-- Intense background lighting effect -->
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-[100%] h-[400px] bg-corp-800 rounded-full blur-[200px] opacity-40 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 mb-32 items-center">
+                
+                <!-- Info block -->
+                <div data-aos="fade-right">
+                    <h2 class="text-6xl md:text-[5rem] font-black mb-12 leading-[1.05] tracking-tighter text-white drop-shadow-2xl">
+                        Initiate<br><span class="text-blue-500">Contact.</span>
+                    </h2>
+                    
+                    <div class="space-y-12 mt-16">
+                        <div class="group flex items-start gap-8">
+                            <div class="w-20 h-20 rounded-[2rem] bg-white/5 flex items-center justify-center shadow-inner-light group-hover:bg-white group-hover:text-corp-900 transition-all duration-500 backdrop-blur-2xl shrink-0">
+                                <i class="fas fa-map-marker-alt text-3xl"></i>
+                            </div>
+                            <div class="pt-2">
+                                <p class="text-[10px] font-black uppercase tracking-[0.4em] text-blue-400 mb-2">Headquarters</p>
+                                <p class="text-xl font-light text-white/80 leading-relaxed">Unit 1101 139 Corporate Center Bldg.,<br>139 Valero St., Salcedo Village,<br>Makati City 1227</p>
+                            </div>
+                        </div>
+
+                        <div class="group flex items-start gap-8">
+                            <div class="w-20 h-20 rounded-[2rem] bg-white/5 flex items-center justify-center shadow-inner-light group-hover:bg-white group-hover:text-corp-900 transition-all duration-500 backdrop-blur-2xl shrink-0">
+                                <i class="fas fa-phone-alt text-3xl"></i>
+                            </div>
+                            <div class="pt-2">
+                                <p class="text-[10px] font-black uppercase tracking-[0.4em] text-blue-400 mb-2">Direct Line</p>
+                                <p class="text-3xl font-light text-white/90">0998-547-2092</p>
+                            </div>
+                        </div>
+
+                        <div class="group flex items-start gap-8">
+                            <div class="w-20 h-20 rounded-[2rem] bg-white/5 flex items-center justify-center shadow-inner-light group-hover:bg-white group-hover:text-corp-900 transition-all duration-500 backdrop-blur-2xl shrink-0">
+                                <i class="fas fa-envelope text-3xl"></i>
+                            </div>
+                            <div class="pt-2">
+                                <p class="text-[10px] font-black uppercase tracking-[0.4em] text-blue-400 mb-2">Electronic Mail</p>
+                                <p class="text-xl font-light text-white/90 break-all">info@infobytessolutionsinc.com</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="services" class="section bg-light">
-        <div class="container">
-            <div class="section-header text-center" data-aos="fade-up">
-                <h2>Our Services</h2>
-                <div class="section-divider"></div>
-                <p>Comprehensive IT solutions tailored to your needs</p>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-network-wired"></i>
-                        </div>
-                        <h3>System Integration</h3>
-                        <p>Seamless integration of diverse hardware and software components to create cohesive, functional systems.</p>
-                        <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-                    </div>
+                <!-- Deep Blended Map -->
+                <div class="h-[700px] w-full rounded-[4rem] overflow-hidden shadow-ambient-strong relative bg-corp-900 transform lg:rotate-1 hover:rotate-0 transition-transform duration-1000" data-aos="zoom-in" data-aos-delay="200">
+                    <!-- Color blending overlay to make map strictly blue/black -->
+                    <div class="absolute inset-0 bg-corp-950/40 pointer-events-none z-10 mix-blend-color"></div>
+                    <div class="absolute inset-0 bg-blue-900/10 pointer-events-none z-10 mix-blend-overlay"></div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.733517226591!2d121.0189012!3d14.5572239!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c90b62e452cd%3A0xc66c1b3fb18f4a7c!2s139%20Corporate%20Center!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Location Map" class="absolute inset-0 z-0 opacity-70 grayscale"></iframe>
                 </div>
-                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-database"></i>
-                        </div>
-                        <h3>Data Storage Solutions</h3>
-                        <p>Secure, scalable, and reliable data storage systems designed to protect your valuable information assets.</p>
-                        <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3>Security Measures</h3>
-                        <p>Comprehensive cybersecurity strategies and solutions for robust protection against evolving threats.</p>
-                        <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="400">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-file-contract"></i>
-                        </div>
-                        <h3>Software Licensing</h3>
-                        <p>Expert guidance for software licensing compliance and cost-optimization for your organization.</p>
-                        <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="500">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-sitemap"></i>
-                        </div>
-                        <h3>Networking Solutions</h3>
-                        <p>Robust networking infrastructure design, implementation, and management for optimal connectivity.</p>
-                        <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="600">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-comments"></i>
-                        </div>
-                        <h3>IT Consultation</h3>
-                        <p>Strategic IT consultation and technology decision support aligned with your business objectives.</p>
-                        <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="solutions" class="section">
-        <div class="container">
-            <div class="section-header text-center" data-aos="fade-up">
-                <h2>Solutions By Sector</h2>
-                <div class="section-divider"></div>
-                <p>Tailored IT solutions for diverse industry needs</p>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="solution-card">
-                        <div class="solution-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <h3>Educational Institutions</h3>
-                        <ul class="solution-list">
-                            <li>Campus-wide network infrastructure</li>
-                            <li>Student information systems (SIS)</li>
-                            <li>Digital learning & e-learning platforms</li>
-                            <li>Library management systems</li>
-                            <li>Administrative workflow automation</li>
-                        </ul>
-                        <a href="#contact" class="btn btn-outline-primary mt-auto">Get Started</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200"> <div class="solution-card">
-                        <div class="solution-icon">
-                            <i class="fas fa-building"></i>
-                        </div>
-                        <h3>Corporate Enterprises</h3>
-                        <ul class="solution-list">
-                            <li>Enterprise resource planning (ERP)</li>
-                            <li>Customer relationship management (CRM)</li>
-                            <li>Business intelligence and analytics</li>
-                            <li>Cloud migration and management</li>
-                            <li>Cybersecurity and data compliance</li>
-                        </ul>
-                        <a href="#contact" class="btn btn-outline-primary mt-auto">Get Started</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="300"> <div class="solution-card">
-                        <div class="solution-icon">
-                            <i class="fas fa-landmark"></i>
-                        </div>
-                        <h3>Government Agencies</h3>
-                        <ul class="solution-list">
-                            <li>Secure data management systems</li>
-                            <li>Citizen service & e-governance portals</li>
-                            <li>Document management & workflow</li>
-                            <li>Compliance and security frameworks</li>
-                            <li>Disaster recovery & business continuity</li>
-                        </ul>
-                        <a href="#contact" class="btn btn-outline-primary mt-auto">Get Started</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="partners" class="section bg-light">
-        <div class="container">
-            <div class="section-header text-center" data-aos="fade-up">
-                <h2>Our Key Partners</h2>
-                <div class="section-divider"></div>
-                <p>Collaborating with leading technology providers and institutions</p>
             </div>
             
-            <div class="partners-logo-scroller" data-aos="fade-up" data-aos-delay="200">
-                <div class="partners-logo-track">
-                    <div class="partner-logo-item-3d"><div class="partner-logo-img-container"><img src="dell.png" alt="DELL Logo" class="img-fluid-1"></div><h5>DELL</h5></div>
-                    <div class="partner-logo-item-3d"><div class="partner-logo-img-container"><img src="HUAWEI.png" alt="HUAWEI Logo" class="img-fluid-1"></div><h5>HUAWEI</h5></div>
-                    <div class="partner-logo-item-3d"><div class="partner-logo-img-container"><img src="vst.png" alt="VST ECS Logo" class="img-fluid-1"></div><h5>VST ECS</h5></div>
-                    <div class="partner-logo-item-3d"><div class="partner-logo-img-container"><img src="mb.png" alt="MBPS Logo" class="img-fluid-1"></div><h5>MBPS</h5></div>
-                    <div class="partner-logo-item-3d"><div class="partner-logo-img-container"><img src="REMAX.png" alt="REMAX Logo" class="img-fluid-1"></div><h5>REMAX</h5></div>
-                    <div class="partner-logo-item-3d"><div class="partner-logo-img-container"><img src="nt.png" alt="NTEK Logo" class="img-fluid-1"></div><h5>NTEK</h5></div>
-                    <div class="partner-logo-item-3d"><div class="partner-logo-img-container"><img src="lea.png" alt="LEADTECH Logo" class="img-fluid-1"></div><h5>LEADTECH</h5></div>
-                    <div class="partner-logo-item-3d"><div class="partner-logo-img-container"><img src="YUGA.png" alt="YUGABYTE Logo" class="img-fluid-1"></div><h5>YUGABYTE</h5></div>
-                    <div class="partner-logo-item-3d"><div class="partner-logo-img-container"><img src="MS.png" alt="MICROSOFT Logo" class="img-fluid-1"></div><h5>MICROSOFT</h5></div>
+            <!-- Absolute Minimalist Footer -->
+            <div class="flex flex-col md:flex-row justify-between items-center pt-12 gap-8 relative z-10">
+                <div class="flex items-center">
+                    <img src="logo.png" alt="Logo" class="h-10 w-auto object-contain opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700 cursor-pointer" onerror="this.outerHTML='<i class=\'fas fa-microchip text-white/30 text-3xl hover:text-white transition-colors duration-500 cursor-pointer\'></i>'">
                 </div>
-            </div>
-
-            <div class="partners-logo-scroller" data-aos="fade-up" data-aos-delay="250"> <div class="partners-logo-track">
-                    <div class="partner-logo-item-3d"><div class="partner-logo-img-container"><img src="CCCI.png" alt="CCCI Logo" class="img-fluid-1"></div><h5>CCCI</h5></div>
-                    <div class="partner-logo-item-3d"><div class="partner-logo-img-container"><img src="for.png" alt="FORTINET Logo" class="img-fluid-1"></div><h5>FORTINET</h5></div>
-                    <div class="partner-logo-item-3d"><div class="partner-logo-img-container"><img src="VERTIV.png" alt="VERTIV Logo" class="img-fluid-1"></div><h5>VERTIV</h5></div>
-                    <div class="partner-logo-item-3d"><div class="partner-logo-img-container"><img src="MEDIABLAST.png" alt="MEDIABLAST Logo" class="img-fluid-1"></div><h5>MEDIABLAST</h5></div>
-                    <div class="partner-logo-item-3d"><div class="partner-logo-img-container"><img src="GEMENI.png" alt="GEMENI Logo" class="img-fluid-1"></div><h5>GEMINI</h5></div>
-                    <div class="partner-logo-item-3d"><div class="partner-logo-img-container"><img src="BZN.png" alt="BZN Logo" class="img-fluid-1"></div><h5>BZN</h5></div>
-                    <div class="partner-logo-item-3d"><div class="partner-logo-img-container"><img src="ARUBA.png" alt="ARUBA Logo" class="img-fluid-1"></div><h5>ARUBA</h5></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="certifications" class="section">
-        <div class="container">
-            <div class="section-header text-center" data-aos="fade-up">
-                <h2>Certifications & Compliance</h2>
-                <div class="section-divider"></div>
-                <p>Our commitment to excellence and regulatory standards</p>
-            </div>
-            <div class="row align-items-center">
-                <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
-                    <div class="certification-content">
-                        <h3>New Government Procurement Act</h3>
-                        <p class="lead">Infobytes Solutions Inc. is proud to announce our compliance with the New Government Procurement Act (Republic Act No. 12009).</p>
-                        <p>This training enables us to participate in government procurement activities with the highest standards of transparency, accountability, and efficiency. Our compliance with RA 12009 demonstrates our commitment to ethical business practices and our readiness to serve government institutions with integrity.</p>
-                        <div class="certification-features">
-                            <div class="feature-item" data-aos="fade-up" data-aos-delay="250">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Transparent Procurement Processes</span>
-                            </div>
-                            <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Ethical Business Practices</span>
-                            </div>
-                            <div class="feature-item" data-aos="fade-up" data-aos-delay="350">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Compliance with Government Standards</span>
-                            </div>
-                            <div class="feature-item" data-aos="fade-up" data-aos-delay="400">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Qualified for Government Projects</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="400">
-                    <div class="certification-img">
-                        <img src="proc.jpg" alt="Government Procurement Act Certification Document" class="img-fluid rounded-lg shadow-lg"> <div class="certification-badge">
-                            <span>RA 12009</span>
-                            <p>Compliant</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mt-5"></div>
-            <div class="row align-items-center mt-5">
-                <div class="col-lg-6 order-lg-2" data-aos="fade-left" data-aos-delay="200">
-                    <div class="certification-content">
-                        <h3>CPSI Certification</h3>
-                        <p class="lead">ISO 9001:2015 QUALITY MANAGEMENT SYSTEM</p>
-                        <p>Provision of Information Technology Systems Integration of Hardware Components and
-Software Solutions and other Related Services such as Structured Cabling, Internet
-Connectivity, Data Centers and Managed Services.</p>
-                        <div class="mt-4">
-                            <a href="certification.pdf" target="_blank" class="btn btn-primary btn-lg">
-                                <i class="fas fa-file-pdf me-2"></i> View PDF
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 order-lg-1" data-aos="fade-right" data-aos-delay="400">
-                    <div class="certification-img">
-                        <img src="cpsi.png" alt="CPSI Certification" class="img-fluid rounded-lg shadow-lg" style="padding: 20px; background: #fff;">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-    </section>
-
-    <section id="contact" class="section bg-light">
-        <div class="container">
-            <div class="section-header text-center" data-aos="fade-up">
-                <h2>Contact Us</h2>
-                <div class="section-divider"></div>
-                <p>Get in touch with our team for inquiries and support</p>
-            </div>
-            <div class="row">
-                <div class="col-lg-5 mb-4 mb-lg-0" data-aos="fade-right" data-aos-delay="200">
-                    <div class="contact-info-card">
-                        <h3>Let's Connect</h3>
-                        <p>We're here to answer any questions you may have about our services and solutions. Reach out to us today.</p>
-                        <div class="contact-item">
-                            <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
-                            <div class="text">
-                                <h4>Address</h4>
-                                <p>Unit 1101 139 Corporate Center Bldg., 139 Valero St., Salcedo Village, Bel-Air, Makati City 1227</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="icon"><i class="fas fa-phone"></i></div>
-                            <div class="text">
-                                <h4>Phone</h4>
-                                <p><a href="tel:09985472092">0998-547-2092</a></p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="icon"><i class="fas fa-envelope"></i></div>
-                            <div class="text">
-                                <h4>Email</h4>
-                                <p><a href="mailto:info@infobytessolutionsinc.com">info@infobytessolutionsinc.com</a></p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="icon"><i class="fas fa-globe"></i></div>
-                            <div class="text">
-                                <h4>Website</h4>
-                                <p><a href="https://infobytessolutionsinc.com/" target="_blank" rel="noopener noreferrer">infobytessolutionsinc.com</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-7" data-aos="fade-left" data-aos-delay="400">
-                    <div class="map-container">
-                        <iframe src="https://maps.google.com/maps?q=139%20Corporate%20Center%20Makati&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Infobytes Solutions Inc. Location Map"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="cta-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-9 mx-auto text-center" data-aos="fade-up"> <h2>Ready to Transform Your IT Infrastructure?</h2>
-                    <p>Let's collaborate to create innovative and effective solutions tailored for your organization's success.</p>
-                    <a href="#contact" class="btn btn-primary btn-lg mt-4">Get Started Today</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                    <div class="footer-info">
-                        <h3>Infobytes Solutions Inc.</h3>
-                        <p>Providing advanced and innovative information technology products and services since 2018.</p>
-                        <div class="social-links">
-                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-6 mb-4 mb-lg-0"> <div class="footer-links">
-                        <h4>Quick Links</h4>
-                        <ul>
-                            <li><a href="#home">Home</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a href="#services">Services</a></li>
-                            <li><a href="#solutions">Solutions</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-6 mb-4 mb-lg-0"> <div class="footer-links">
-                        <h4>Explore More</h4>
-                        <ul>
-                            <li><a href="#partners">Partners</a></li>
-                            <li><a href="#certifications">Certifications</a></li>
-                            <li><a href="#contact">Contact Us</a></li>
-                            <li><a href="#">Privacy Policy</a></li> 
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0"> <div class="footer-links">
-                        <h4>Our Services</h4>
-                        <ul>
-                            <li><a href="#services">System Integration</a></li>
-                            <li><a href="#services">Data Storage Solutions</a></li>
-                            <li><a href="#services">Security Measures</a></li>
-                            <li><a href="#services">Software Licensing</a></li>
-                            <li><a href="#services">IT Consultation</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <p>© <span id="currentYear"></span> Infobytes Solutions Inc. All Rights Reserved.</p>
-                    </div>
-                    <div class="col-lg-6 text-lg-end">
-                        </div>
-                </div>
+                
+                <p class="text-[10px] text-white/30 font-black tracking-[0.5em] uppercase text-center">
+                    © 2026 infobytessolutionsinc.com
+                </p>
             </div>
         </div>
     </footer>
 
-    <a href="#" class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></a>
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Cinematic Loading Screen Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const loader = document.getElementById('loader');
+            const navbar = document.getElementById('navbar');
+            
+            // Wait 2 seconds, then fade out loader
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                
+                // Remove loader from DOM and trigger intro animations
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    navbar.classList.remove('-translate-y-full');
+                    
+                    // Initialize AOS after loading screen for max impact
+                    AOS.init({
+                        once: true,
+                        offset: 50,
+                        duration: 1200,
+                        easing: 'ease-out-cubic',
+                    });
+                }, 1000); // 1s matches the opacity transition duration
+            }, 2000); // 2 seconds loading
+        });
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="script.js"></script>
+        // Mobile Menu Interactivity
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const icon = btn.querySelector('i');
+
+        btn.addEventListener('click', () => {
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                menu.classList.add('flex', 'animate-pulse');
+                setTimeout(()=> menu.classList.remove('animate-pulse'), 500);
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                menu.classList.add('hidden');
+                menu.classList.remove('flex');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close mobile menu on click
+        const mobileLinks = menu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                menu.classList.remove('flex');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+
+        // Dynamic Glass Navbar on Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(2, 5, 15, 0.95)'; // Deepen on scroll
+            } else {
+                nav.style.background = 'rgba(2, 5, 15, 0.6)';
+            }
+        });
+    </script>
 </body>
 </html>
